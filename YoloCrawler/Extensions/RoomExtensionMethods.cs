@@ -4,11 +4,13 @@
 
     public static class RoomExtensionMethods
     {
-        public static void WithRandomMonster(this Room room, Position position)
+        public static Room WithRandomMonster(this Room room, Position position)
         {
             var monster = new Monster(room, position);
 
             room.Monsters.Add(monster);
+
+            return room;
         }
     }
 }

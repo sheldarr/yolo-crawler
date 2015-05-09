@@ -1,7 +1,9 @@
 ﻿namespace YoloCrawler
 {
+    using System.Collections.Generic;
     using System.Threading;
     using Entities;
+    using Extensions;
     using Factories;
     using Fighting;
 
@@ -25,17 +27,22 @@
             var roomSize = new Size(16, 16);
             var dummyFightingStrategy = new DummyFightingStrategy();
 
-            _room = RoomFactory.CreateEmptyRoom(roomSize, startingPosition);
+            _room = RoomFactory.CreateEmptyRoom(roomSize, startingPosition).WithRandomMonster(new Position(3, 3));
             _team = new YoloTeam(_room, dummyFightingStrategy);
             _worldRepresentation = new WorldRepresentation(_room, _team);
         }
 
         public void Move(Offset offset)
         {
+            RemoveDeadMonsters(_room.Monsters);
             _team.Move(offset);
             _worldRepresentation = new WorldRepresentation(_room, _team);
             _presentation.Draw(_worldRepresentation);
+        }
 
+        private void RemoveDeadMonsters(List<Monster> monsters)
+        {
+            monsters.RemoveAll(monster => monster.HitPoints <= 0);
         }
 
         public void SayHello()
