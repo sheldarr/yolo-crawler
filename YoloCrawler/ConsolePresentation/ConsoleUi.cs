@@ -15,7 +15,7 @@
 
         public ConsoleUi(Size displaySize, ConsolePresentationConfiguration consolePresentationConfiguration)
         {
-            _displaySize = new Size(displaySize.Width + 4, displaySize.Height + 4);
+            _displaySize = new Size(displaySize.Width, displaySize.Height);
 
             _consolePresentationConfiguration = consolePresentationConfiguration;
             const int logWindowHeight = 6;
@@ -31,62 +31,68 @@
             Console.SetCursorPosition(0, _displaySize.Height + logWindowHeight);
         }
 
-        private void InitializeMapWindow()
-        {
-            DrawHorizontalBorder();
-
-            for (int i = 0; i < _displaySize.Height - 2; i++)
-            {
-                DrawEmptyLine();
-            }
-
-            DrawHorizontalBorder();
-        }
-
-        private void DrawHorizontalBorder()
-        {
-            _mapWindow.WriteLine(new string(_consolePresentationConfiguration.HorizontalDisplayBorder, _displaySize.Width));
-        }
-
         public void Log(string output)
         {
             _logWindow.WriteLine(output);
         }
 
+        private void InitializeMapWindow()
+        {
+            GetHorizontalBorder();
+
+            for (int i = 0; i < _displaySize.Height - 2; i++)
+            {
+                GetEmptyLine();
+            }
+
+            GetHorizontalBorder();
+        }
+
+        private string GetHorizontalBorder()
+        {
+            return new string(_consolePresentationConfiguration.HorizontalDisplayBorder, _displaySize.Width);
+        }
+
         public void Draw(WorldRepresentation worldRepresentation)
         {
-            DrawHorizontalBorder();
-            DrawEmptyLine();
+            var displayLines = new List<string>();
 
-            var roomLines = GetRoomLines(worldRepresentation.Room, worldRepresentation.Team);
+            var availableSpace = _displaySize.Height - 2 - worldRepresentation.Room.Size.Height;
 
-            roomLines.ForEach(DrawCentered);
+            var availableSpaceHeightIsEven = availableSpace % 2 == 0;
 
-            DrawEmptyLine();
-            DrawHorizontalBorder();
-        }
-
-        private void DrawCentered(string roomLine)
-        {
-            var availableSpace = _displaySize.Width - 2 - roomLine.Length;
-
-            var availableSpaceWidthIsEven = availableSpace%2 == 0;
-
-            if (availableSpaceWidthIsEven)
+            if (!availableSpaceHeightIsEven)
             {
-                var spaceAroundCenteredContent = availableSpace/2;
-
-                _mapWindow.WriteLine(_consolePresentationConfiguration.VerticalDisplayBorder + new string(_consolePresentationConfiguration.EmptySpace, spaceAroundCenteredContent)
-                    + roomLine + new string(_consolePresentationConfiguration.EmptySpace, spaceAroundCenteredContent) + _consolePresentationConfiguration.VerticalDisplayBorder);
+                throw new NotImplementedException("oops, odd number of lines to center");
             }
+
+            var emptyLinesAboveAndBelowRoom = availableSpace / 2;
+
+            displayLines.Add(GetHorizontalBorder());
+
+            for (int i = 0; i < emptyLinesAboveAndBelowRoom; i++)
+            {
+                displayLines.Add(GetEmptyLine());
+            }
+            
+
+            displayLines.AddRange(GetRoomLines(worldRepresentation.Room, worldRepresentation.Team));
+
+            for (int i = 0; i < emptyLinesAboveAndBelowRoom; i++)
+            {
+                displayLines.Add(GetEmptyLine());
+            }
+            displayLines.Add(GetHorizontalBorder());
+
+            _mapWindow.WriteLines(displayLines);
         }
 
-        private void DrawEmptyLine()
+        private string GetEmptyLine()
         {
-            _mapWindow.WriteLine(_consolePresentationConfiguration.VerticalDisplayBorder + new string(_consolePresentationConfiguration.EmptySpace, _displaySize.Width - 2) + _consolePresentationConfiguration.VerticalDisplayBorder);
+            return _consolePresentationConfiguration.VerticalDisplayBorder + new string(_consolePresentationConfiguration.EmptySpace, _displaySize.Width - 2) + _consolePresentationConfiguration.VerticalDisplayBorder;
         }
 
-        private List<string> GetRoomLines(Room room, YoloTeam team)
+        private IEnumerable<string> GetRoomLines(Room room, YoloTeam team)
         {
             var roomLines = new List<string>();
             for (int h = 0; h < room.Size.Height; h++)
@@ -108,10 +114,27 @@
                         stringBuilder.Append(_consolePresentationConfiguration.GetTileCharacter(room.Tiles[w, h]));
                     }
                 }
-                roomLines.Add(stringBuilder.ToString());
+                roomLines.Add(CenterHorizontally(stringBuilder.ToString(), _displaySize.Width - 2));
             }
 
             return roomLines;
+        }
+
+        private string CenterHorizontally(string lineToCenter, int width)
+        {
+            var availableSpace = width - lineToCenter.Length;
+
+            var availableSpaceWidthIsEven = availableSpace % 2 == 0;
+
+            if (availableSpaceWidthIsEven)
+            {
+                var spaceAroundCenteredContent = availableSpace / 2;
+
+                return _consolePresentationConfiguration.VerticalDisplayBorder + new string(_consolePresentationConfiguration.EmptySpace, spaceAroundCenteredContent)
+                    + lineToCenter + new string(_consolePresentationConfiguration.EmptySpace, spaceAroundCenteredContent) + _consolePresentationConfiguration.VerticalDisplayBorder;
+            }
+
+            throw new NotImplementedException("oops, odd number of characters to center");
         }
     }
 }

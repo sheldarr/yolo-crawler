@@ -22,7 +22,7 @@
         private void InitializeGame()
         {
             var startingPosition = new Position(1,1);
-            var roomSize = new Size(16, 16);
+            var roomSize = new Size(10, 10);
             var dummyFightingStrategy = new DummyFightingStrategy();
 
             _room = RoomFactory.CreateEmptyRoom(roomSize, startingPosition);
@@ -36,11 +36,6 @@
             _worldRepresentation = new WorldRepresentation(_room, _team);
             _presentation.Draw(_worldRepresentation);
 
-        }
-
-        public void SayHello()
-        {
-            _presentation.Log("hello!");
         }
 
         public void Run()
