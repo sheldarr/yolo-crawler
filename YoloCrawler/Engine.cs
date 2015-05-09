@@ -36,6 +36,7 @@
             _room = Map.GetRandomRoom();
             _yoloTeam = new YoloTeam(dummyFightingStrategy, _room.StartingPosition);
             _worldRepresentation = new WorldRepresentation(_room, _yoloTeam);
+            _presentation.Draw(_worldRepresentation);
         }
 
         public void Move(Offset offset)
@@ -70,9 +71,16 @@
 
             if (nextTile.Type == TileType.Door)
             {
-                _room = nextTile.GetNextRoom();
-                _yoloTeam.EnterRoom(_room.StartingPosition);
+                EnterNextRoom(nextTile);
             }
+        }
+
+        private void EnterNextRoom(Tile nextTile)
+        {
+            var nextRoom = nextTile.GetRoom();
+            Tile doorToNextRoom = nextRoom.GetDoorTo(_room);
+            _yoloTeam.EnterRoom(doorToNextRoom.GetStartingPosition());
+            _room = nextRoom;
         }
 
         private void RemoveDeadMonsters(List<Monster> monsters)
