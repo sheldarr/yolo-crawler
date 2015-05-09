@@ -6,7 +6,7 @@
     using System.Text;
     using Entities;
 
-    internal class ConsoleUi : Presentation
+    internal class ConsoleUi : Presentation, Logger
     {
         private readonly Size _displaySize;
         private readonly Window _logWindow;

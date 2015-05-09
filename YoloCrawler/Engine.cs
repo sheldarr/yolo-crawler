@@ -1,23 +1,27 @@
 ﻿namespace YoloCrawler
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
+    using ConsolePresentation;
     using Entities;
     using Extensions;
     using Factories;
     using Fighting;
 
     public class Engine
-
     {
         private readonly Presentation _presentation;
+        private readonly Logger _logger;
         private Room _room;
         private YoloTeam _team;
         private WorldRepresentation _worldRepresentation;
 
-        public Engine(Presentation presentation)
+        public Engine(Presentation presentation, Logger logger)
         {
             _presentation = presentation;
+            _logger = logger;
             InitializeGame();
         }
 
@@ -25,7 +29,7 @@
         {
             var startingPosition = new Position(1,1);
             var roomSize = new Size(16, 16);
-            var dummyFightingStrategy = new DummyFightingStrategy();
+            var dummyFightingStrategy = new DummyFightingStrategy(_logger);
 
             _room = RoomFactory.CreateEmptyRoom(roomSize, startingPosition).WithRandomMonster(new Position(3, 3));
             _team = new YoloTeam(_room, dummyFightingStrategy);
@@ -34,7 +38,7 @@
 
         public void Move(Offset offset)
         {
-            RemoveDeadMonsters(_room.Monsters);
+            RemoveDeadMonsters(_room.Monsters);            
             _team.Move(offset);
             _worldRepresentation = new WorldRepresentation(_room, _team);
             _presentation.Draw(_worldRepresentation);
@@ -42,12 +46,15 @@
 
         private void RemoveDeadMonsters(List<Monster> monsters)
         {
-            monsters.RemoveAll(monster => monster.HitPoints <= 0);
-        }
+            var monstersToRemove = monsters.Where(monster => monster.IsDead).ToList();
 
-        public void SayHello()
-        {
-            _presentation.Log("hello!");
+            monstersToRemove.ForEach(monster =>
+            {
+                var message = String.Format("Monster defeated at ({0}, {1})! Good job yolo team!", monster.Position.X, monster.Position.Y);
+                _logger.Log(message);
+            });
+            
+            monsters.RemoveAll(monster => monster.IsDead);
         }
 
         public void Run()
@@ -56,14 +63,6 @@
             {
                 Thread.Sleep(1000 / 24);
             }
-        }
-    }
-
-    internal class DummyFightingStrategy : TeamFightingStrategy
-    {
-        public void Attack(Monster monster)
-        {
-            monster.HitPoints -= 1;
         }
     }
 }

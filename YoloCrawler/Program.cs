@@ -28,8 +28,10 @@
         private void RunEngine()
         {
             var mapSize = new Size(60, 20);
-            var presentation = new ConsoleUi(mapSize, new ConsolePresentationConfiguration());
-            _engine = new Engine(presentation);
+            var consoleUi = new ConsoleUi(mapSize, new ConsolePresentationConfiguration());
+            var presentation = consoleUi as Presentation;
+            var logger = consoleUi as Logger;
+            _engine = new Engine(presentation, logger);
             _engineInitialized.Set();
             _engine.Run();
         }
