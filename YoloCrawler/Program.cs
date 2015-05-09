@@ -23,6 +23,7 @@
             _engineInitialized.WaitOne();
             var input = new ConsoleInput(_engine);
             input.MainLoop();
+            thread.Join();
         }
 
         private void RunEngine()
@@ -34,6 +35,8 @@
             _engine = new Engine(presentation, logger);
             _engineInitialized.Set();
             _engine.Run();
+
+            _engine.AnounceResult();
         }
     }
 }

@@ -2,35 +2,36 @@ namespace YoloCrawler.Entities
 {
     using Fighting;
 
-    public class YoloTeam
+    public class YoloTeam : Being, ICanAttack, ICanBeAttacked
     {
-        private Position _position;
-        private readonly TeamFightingStrategy _teamFightingStrategy;
-
-        public YoloTeam(TeamFightingStrategy teamFightingStrategy, Position startingPosition)
+        public YoloTeam(Position startingPosition)
         {
-            _position = startingPosition;
-            _teamFightingStrategy = teamFightingStrategy;
-        }
-
-        public Position Position
-        {
-            get { return _position; }
+            Position = startingPosition;
+            Hitpoints = 10;
+            Name = "#YoloTeam";
         }
 
         public void Move(Offset offset)
         {
-            _position += offset;
-        }
-
-        public void Attack(Monster monsterToAttack)
-        {
-            _teamFightingStrategy.Attack(monsterToAttack);
+            Position += offset;
         }
 
         public void EnterRoom(Position newRoomStartingPosition)
         {
-            _position = newRoomStartingPosition;
+            Position = newRoomStartingPosition;
+        }
+
+        public void Attack(ICanBeAttacked target)
+        {
+            target.Take(new Damage
+            {
+                Hitpoints = 1
+            });
+        }
+
+        public void Take(Damage dmg)
+        {
+            Hitpoints -= dmg.Hitpoints;
         }
     }
 }

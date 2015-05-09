@@ -53,6 +53,8 @@
     <Compile Include="ConsolePresentation\ConsolePresentationConfiguration.cs" />
     <Compile Include="ConsolePresentation\Logger.cs" />
     <Compile Include="Entities\Dimensions.cs" />
+    <Compile Include="Entities\IAm.cs" />
+    <Compile Include="Fighting\ICanAttack.cs" />
     <Compile Include="Entities\Map.cs" />
     <Compile Include="Entities\Monster.cs" />
     <Compile Include="Entities\RoomCorridor.cs" />
@@ -62,9 +64,10 @@
     <Compile Include="Factories\MapFactory.cs" />
     <Compile Include="Factories\MonsterNamesLoader.cs" />
     <Compile Include="Factories\MonsterFactory.cs" />
-    <Compile Include="Fighting\DummyFightingStrategy.cs" />
+    <Compile Include="Fighting\Damage.cs" />
+    <Compile Include="Entities\Being.cs" />
+    <Compile Include="Fighting\ICanBeAttacked.cs" />
     <Compile Include="Fighting\RandomGenerator.cs" />
-    <Compile Include="Fighting\TeamFightingStrategy.cs" />
     <Compile Include="Input\ConsoleInput.cs" />
     <Compile Include="Input\KeyMapping.cs" />
     <Compile Include="Input\KeyMappingLoader.cs" />

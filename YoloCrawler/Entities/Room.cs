@@ -2,9 +2,8 @@ namespace YoloCrawler.Entities
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
-    using System.Security.Cryptography.X509Certificates;
+    using Microsoft.Build.Utilities;
 
     public class Room
     {
@@ -102,6 +101,11 @@ namespace YoloCrawler.Entities
             return Monsters.Any(monster => Equals(monster.Position, position));
         }
 
+        public void RemoveDeadMonsters(ConsolePresentation.Logger logger)
+        {
+            Monsters.RemoveAll(monster => monster.IsDead);
+        }
+        
         public Tile GetDoorTo(Room room)
         {
             foreach (var tile in Tiles)
