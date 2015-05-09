@@ -38,9 +38,9 @@
 
         public void Move(Offset offset)
         {
-            RemoveDeadMonsters(_room.Monsters);            
             _team.Move(offset);
             _worldRepresentation = new WorldRepresentation(_room, _team);
+            RemoveDeadMonsters(_room.Monsters);            
             _presentation.Draw(_worldRepresentation);
         }
 
