@@ -1,6 +1,6 @@
 ﻿namespace YoloCrawler
 {
-    internal class Engine
+    public class Engine
     {
         private readonly Presentation _pres;
 
@@ -17,6 +17,11 @@
         public void SayHello()
         {
             _pres.WriteLine("hello!");
+        }
+
+        public void Move(Offset offset)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
