@@ -1,4 +1,4 @@
-namespace YoloCrawler.ConsolePresentation
+namespace YoloCrawler
 {
     internal struct Dimensions
     {
