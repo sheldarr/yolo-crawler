@@ -1,12 +1,12 @@
 ﻿namespace YoloCrawler.Factories
 {
-    using YoloCrawler.Entities;
+    using Entities;
 
     public static class RoomFactory
     {
-        public static Room CreateEmptyRoom(int width, int height, Position startingPosition)
+        public static Room CreateEmptyRoom(Size size, Position startingPosition)
         {
-            var room = new Room(width, height, startingPosition);
+            var room = new Room(size, startingPosition);
 
             CreateFloor(room);
             CreateWalls(room);

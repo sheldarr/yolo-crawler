@@ -3,6 +3,7 @@
     using System.Threading;
     using ConsolePresentation;
     using Input;
+    using Entities;
 
     class Program
     {
@@ -17,16 +18,17 @@
 
         private void Run()
         {
-            var thread = new Thread(RunEgnine) {IsBackground = true};
+            var thread = new Thread(RunEngine) {IsBackground = true};
             thread.Start();
             _engineInitialized.WaitOne();
             var input = new ConsoleInput(_engine);
             input.MainLoop();
         }
 
-        private void RunEgnine()
+        private void RunEngine()
         {
-            var presentation = new ConsoleUi();
+            var mapSize = new Size(60, 16);
+            var presentation = new ConsoleUi(mapSize, new ConsolePresentationConfiguration());
             _engine = new Engine(presentation);
             _engineInitialized.Set();
             _engine.Run();
