@@ -2,7 +2,7 @@
 {
     using Fighting;
 
-    public class Monster : ICanBeAttacked, IAm
+    public class Monster : ICanAttack, ICanBeAttacked, IAm
     {
         public string Name { get; private set; }
         public Position Position { get; private set; }
@@ -22,6 +22,14 @@
         public void Take(Damage dmg)
         {
             Hitpoints -= dmg.Hitpoints;
+        }
+
+        public void Attack(ICanBeAttacked target)
+        {
+            target.Take(new Damage
+            {
+                Hitpoints = 1
+            });
         }
     }
 }

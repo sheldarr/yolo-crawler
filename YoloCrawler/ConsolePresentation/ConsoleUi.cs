@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Text;
     using Entities;
+    using Fighting;
 
     internal class ConsoleUi : Presentation, Logger
     {
@@ -34,6 +35,11 @@
         public void Log(string output)
         {
             _logWindow.WriteLine(output);
+        }
+
+        public void LogFight(ICanAttack attacker, ICanBeAttacked victim)
+        {
+            _logWindow.WriteLine(string.Format("{0} attacked {1}. {1} is now angry at {2} hp.", attacker.Name, victim.Name, victim.Hitpoints));
         }
 
         private void InitializeMapWindow()

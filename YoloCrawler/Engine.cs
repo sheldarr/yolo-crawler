@@ -29,12 +29,11 @@
         {
             var startingPosition = new Position(1,1);
             var roomSize = new Size(10, 10);
-            var dummyFightingStrategy = new YoloTeamFightingStrategy(_logger);
 
             var factory = new MapFactory(roomSize, startingPosition);
             Map = factory.GenerateRandomMap(4);
             _room = Map.GetRandomRoom();
-            _yoloTeam = new YoloTeam(dummyFightingStrategy, _room.StartingPosition);
+            _yoloTeam = new YoloTeam(_room.StartingPosition);
             _worldRepresentation = new WorldRepresentation(_room, _yoloTeam);
         }
 
@@ -63,6 +62,7 @@
             {
                 var monsterToAttack = _room.Monsters.FirstOrDefault(monster => Equals(monster.Position, nextPosition));
                 _yoloTeam.Attack(monsterToAttack);
+                _logger.LogFight(_yoloTeam, monsterToAttack);
 
                 return;
             }
@@ -78,7 +78,20 @@
 
         private void MonsterAction(Monster monster)
         {
-            
+            var nextPosition = monster.Position + monster.Position.GetOffsetTowards(_yoloTeam.Position);
+
+            var nextTile = _room.Tiles[nextPosition.X, nextPosition.Y];
+
+            if (nextTile.Type == TileType.Wall)
+            {
+                return;
+            }
+
+            if (nextPosition.Equals(_yoloTeam.Position))
+            {
+                monster.Attack(_yoloTeam);
+                _logger.LogFight(monster, _yoloTeam);
+            }
         }
 
         public void Run()
