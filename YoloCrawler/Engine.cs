@@ -19,13 +19,13 @@
         private void InitializeGame()
         {
             _room = RoomFactory.CreateEmptyRoom(16, 16);
-
             _team = new YoloTeam(_room, new Position(0, 0));
         }
 
         public void Move(Offset offset)
         {
             _team.Move(offset);
+            _presentation.Draw(new WorldRepresentation(_room, _team));
         }
 
         public void SayHello()
