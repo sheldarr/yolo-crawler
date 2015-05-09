@@ -2,39 +2,40 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using Entities;
 
     internal class ConsoleUi : Presentation
     {
-        private readonly Size _mapDisplaySize;
+        private readonly Size _displaySize;
         private readonly Window _logWindow;
         private readonly Window _mapWindow;
         private readonly ConsolePresentationConfiguration _consolePresentationConfiguration;
 
-        public ConsoleUi(Size mapSize, ConsolePresentationConfiguration consolePresentationConfiguration)
+        public ConsoleUi(Size displaySize, ConsolePresentationConfiguration consolePresentationConfiguration)
         {
-            _mapDisplaySize = new Size(mapSize.Width + 4, mapSize.Height + 4);
+            _displaySize = new Size(displaySize.Width + 4, displaySize.Height + 4);
 
             _consolePresentationConfiguration = consolePresentationConfiguration;
             const int logWindowHeight = 6;
 
-            Console.WindowWidth = _mapDisplaySize.Width;
-            Console.WindowHeight = _mapDisplaySize.Height + logWindowHeight + 1;
+            Console.WindowWidth = _displaySize.Width;
+            Console.WindowHeight = _displaySize.Height + logWindowHeight + 1;
 
-            _mapWindow = new Window(new Dimensions(new Point(0,0), _mapDisplaySize));
-            _logWindow = new Window(new Dimensions(new Point(0,_mapDisplaySize.Height), new Size(_mapDisplaySize.Width, logWindowHeight)));
+            _mapWindow = new Window(new Dimensions(new Point(0,0), _displaySize));
+            _logWindow = new Window(new Dimensions(new Point(0,_displaySize.Height), new Size(_displaySize.Width, logWindowHeight)));
 
             InitializeMapWindow();
 
-            Console.SetCursorPosition(0, _mapDisplaySize.Height + logWindowHeight);
+            Console.SetCursorPosition(0, _displaySize.Height + logWindowHeight);
         }
 
         private void InitializeMapWindow()
         {
             DrawHorizontalBorder();
 
-            for (int i = 0; i < _mapDisplaySize.Height - 2; i++)
+            for (int i = 0; i < _displaySize.Height - 2; i++)
             {
                 DrawEmptyLine();
             }
@@ -44,7 +45,7 @@
 
         private void DrawHorizontalBorder()
         {
-            _mapWindow.WriteLine(new string(_consolePresentationConfiguration.HorizontalDisplayBorder, _mapDisplaySize.Width));
+            _mapWindow.WriteLine(new string(_consolePresentationConfiguration.HorizontalDisplayBorder, _displaySize.Width));
         }
 
         public void Log(string output)
@@ -67,7 +68,7 @@
 
         private void DrawCentered(string roomLine)
         {
-            var availableSpace = _mapDisplaySize.Width - 2 - roomLine.Length;
+            var availableSpace = _displaySize.Width - 2 - roomLine.Length;
 
             var availableSpaceWidthIsEven = availableSpace%2 == 0;
 
@@ -82,7 +83,7 @@
 
         private void DrawEmptyLine()
         {
-            _mapWindow.WriteLine(_consolePresentationConfiguration.VerticalDisplayBorder + new string(_consolePresentationConfiguration.EmptySpace, _mapDisplaySize.Width - 2) + _consolePresentationConfiguration.VerticalDisplayBorder);
+            _mapWindow.WriteLine(_consolePresentationConfiguration.VerticalDisplayBorder + new string(_consolePresentationConfiguration.EmptySpace, _displaySize.Width - 2) + _consolePresentationConfiguration.VerticalDisplayBorder);
         }
 
         private List<string> GetRoomLines(Room room, YoloTeam team)
@@ -93,10 +94,14 @@
                 var stringBuilder = new StringBuilder();
                 for (int w = 0; w < room.Size.Width; w++)
                 {
-                    var position = new Position(w, h);
-                    if (position.Equals(team.Position))
+                    var currentTilePosition = new Position(w, h);
+                    if (currentTilePosition.Equals(team.Position))
                     {
                         stringBuilder.Append(_consolePresentationConfiguration.TeamCharacter);
+                    }
+                    else if (room.Monsters.Any(monster => monster.Position.Equals(currentTilePosition)))
+                    {
+                        stringBuilder.Append(_consolePresentationConfiguration.MonsterCharacter);
                     }
                     else
                     {
