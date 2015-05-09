@@ -9,6 +9,11 @@
             _pres = pres;
         }
 
+        public void Move()
+        {
+            
+        }
+
         public void SayHello()
         {
             _pres.WriteLine("hello!");
