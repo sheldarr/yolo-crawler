@@ -21,11 +21,11 @@
 
         private void InitializeGame()
         {
-            var startingPosition = new Position(1, 1);
-
+            var startingPosition = new Position(1,1);
+            var roomSize = new Size(16, 16);
             var dummyFightingStrategy = new DummyFightingStrategy();
 
-            _room = RoomFactory.CreateEmptyRoom(16, 16, startingPosition);
+            _room = RoomFactory.CreateEmptyRoom(roomSize, startingPosition);
             _team = new YoloTeam(_room, dummyFightingStrategy);
             _worldRepresentation = new WorldRepresentation(_room, _team);
         }
@@ -34,6 +34,8 @@
         {
             _team.Move(offset);
             _worldRepresentation = new WorldRepresentation(_room, _team);
+            _presentation.Draw(_worldRepresentation);
+
         }
 
         public void SayHello()
@@ -45,7 +47,6 @@
         {
             while (true)
             {
-                _presentation.Draw(_worldRepresentation);
                 Thread.Sleep(1000 / 24);
             }
         }

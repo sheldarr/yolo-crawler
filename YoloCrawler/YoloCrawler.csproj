@@ -49,16 +49,17 @@
   <ItemGroup>
     <Compile Include="ConsolePresentation\ConsoleState.cs" />
     <Compile Include="ConsolePresentation\ConsoleUi.cs" />
-    <Compile Include="Dimensions.cs" />
+    <Compile Include="ConsolePresentation\ConsolePresentationConfiguration.cs" />
+    <Compile Include="Entities\Dimensions.cs" />
     <Compile Include="Entities\Monster.cs" />
     <Compile Include="Entities\WorldRepresentation.cs" />
     <Compile Include="Extensions\RoomExtensionMethods.cs" />
+    <Compile Include="Entities\Point.cs" />
     <Compile Include="Fighting\RandomGenerator.cs" />
     <Compile Include="Fighting\TeamFightingStrategy.cs" />
     <Compile Include="Input\ConsoleInput.cs" />
     <Compile Include="Input\KeyMapping.cs" />
     <Compile Include="Input\KeyMappingLoader.cs" />
-    <Compile Include="Point.cs" />
     <Compile Include="ConsolePresentation\Window.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Entities\Position.cs" />
@@ -69,14 +70,14 @@
     <Compile Include="Factories\RoomFactory.cs" />
     <Compile Include="Entities\TileType.cs" />
     <Compile Include="MovementOffsets.cs" />
-    <Compile Include="Offset.cs" />
+    <Compile Include="Entities\Offset.cs" />
     <Compile Include="Presentation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Input\keyMapping.json">
+    <None Include="keyMapping.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

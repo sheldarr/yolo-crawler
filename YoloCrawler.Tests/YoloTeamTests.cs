@@ -13,8 +13,7 @@
         public void ShouldMoveInRoomWhenPossible()
         {
             // given
-            var startingPosition = new Position(1, 1);
-            var room = RoomFactory.CreateEmptyRoom(4, 4, startingPosition);
+            var room = RoomFactory.CreateEmptyRoom(new Size(4, 4), new Position(1, 1));
 
             var fightingStrategy = A.Dummy<TeamFightingStrategy>();
 
@@ -32,7 +31,7 @@
         {
             // given
             var startingPosition = new Position(1, 1);
-            var room = RoomFactory.CreateEmptyRoom(4, 4, startingPosition);
+            var room = RoomFactory.CreateEmptyRoom(new Size(4,4), startingPosition);
 
             var dummyFightingStrategy = A.Dummy<TeamFightingStrategy>();
 
@@ -48,7 +47,7 @@
         {
             // given
             var startingPosition = new Position(1, 1);
-            var room = RoomFactory.CreateEmptyRoom(4, 4, startingPosition);
+            var room = RoomFactory.CreateEmptyRoom(new Size(4,4), startingPosition);
 
             var dummyFightingStrategy = A.Dummy<TeamFightingStrategy>();
 

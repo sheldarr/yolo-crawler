@@ -11,10 +11,10 @@ namespace YoloCrawler.Entities
 
         public List<Monster> Monsters { get; set; }
 
-        public Room(int width, int height, Position startingPosition)
+        public Room(Size size, Position startingPosition)
         {
-            _tiles = new Tile[width,height];
-            _size = new Size(width, height);
+            _tiles = new Tile[size.Width, size.Height];
+            _size = size;
             _startingPosition = startingPosition;
             Monsters = new List<Monster>();
         }
