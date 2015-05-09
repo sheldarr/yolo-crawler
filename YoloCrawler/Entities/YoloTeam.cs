@@ -5,10 +5,10 @@ namespace YoloCrawler.Entities
         private readonly Room _room;
         private Position _position;
 
-        public YoloTeam(Room room, Position position)
+        public YoloTeam(Room room)
         {
             _room = room;
-            _position = position;
+            _position = room.StartingPosition;
         }
 
         public Position Position
@@ -18,7 +18,14 @@ namespace YoloCrawler.Entities
 
         public void Move(Offset offset)
         {
-            _position += offset;
+            var positionTemp = _position + offset;
+
+            if (_room.Tiles[positionTemp.X, positionTemp.Y].Type == TileType.Wall)
+            {
+                return;
+            }
+
+            _position = positionTemp;
         }
     }
 }

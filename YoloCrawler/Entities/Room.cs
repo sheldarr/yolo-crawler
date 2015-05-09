@@ -6,11 +6,13 @@ namespace YoloCrawler.Entities
     {
         private readonly Tile[,] _tiles;
         private readonly Size _size;
+        private readonly Position _startingPosition;
 
-        public Room(int width, int height)
+        public Room(int width, int height, Position startingPosition)
         {
             _tiles = new Tile[width,height];
             _size = new Size(width, height);
+            _startingPosition = startingPosition;
         }
 
         public Tile[,] Tiles
@@ -21,6 +23,11 @@ namespace YoloCrawler.Entities
         public Size Size
         {
             get { return _size; }
+        }
+
+        public Position StartingPosition
+        {
+            get { return _startingPosition; }
         }
 
         public void Draw()

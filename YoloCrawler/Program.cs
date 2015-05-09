@@ -16,8 +16,7 @@
 
         private void Run()
         {
-            var thread = new Thread(RunEgnine);
-            thread.IsBackground = true;
+            var thread = new Thread(RunEgnine) {IsBackground = true};
             thread.Start();
             _engineInitialized.WaitOne();
             var input = new ConsoleInput(_engine);
@@ -26,13 +25,10 @@
 
         private void RunEgnine()
         {
-            var pres = new ConsoleUi();
-            _engine = new Engine(pres);
+            var presentation = new ConsoleUi();
+            _engine = new Engine(presentation);
             _engineInitialized.Set();
-            while (true)
-            {
-                Thread.Sleep(1000);
-            }
+            _engine.Run();
         }
     }
 }

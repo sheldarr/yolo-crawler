@@ -1,6 +1,8 @@
 ﻿namespace YoloCrawler.ConsolePresentation
 {
     using System;
+    using System.Globalization;
+    using Newtonsoft.Json;
     using YoloCrawler.Entities;
 
     internal class ConsoleUi : Presentation
@@ -38,6 +40,11 @@
         public void Log(string output)
         {
             _logWindow.WriteLine(output);
+        }
+
+        public void Draw(WorldRepresentation worldRepresentation)
+        {
+            _logWindow.WriteLine(JsonConvert.SerializeObject(worldRepresentation.Team.Position).ToString(CultureInfo.InvariantCulture));
         }
     }
 }
