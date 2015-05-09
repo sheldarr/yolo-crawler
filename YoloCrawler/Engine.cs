@@ -27,6 +27,7 @@
         public void Move(Offset offset)
         {
             _team.Move(offset);
+            _presentation.Draw(new WorldRepresentation(_room, _team));
         }
 
         public void SayHello()

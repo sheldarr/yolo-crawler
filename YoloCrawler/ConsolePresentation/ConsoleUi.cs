@@ -1,7 +1,7 @@
 ﻿namespace YoloCrawler.ConsolePresentation
 {
     using System;
-    using YoloCrawler.Entities;
+    using Entities;
 
     internal class ConsoleUi : Presentation
     {
@@ -38,6 +38,11 @@
         public void Log(string output)
         {
             _logWindow.WriteLine(output);
+        }
+
+        public void Draw(WorldRepresentation worldRepresentation)
+        {
+            throw new NotImplementedException();
         }
     }
 }
