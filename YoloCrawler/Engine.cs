@@ -50,7 +50,7 @@
 
             monstersToRemove.ForEach(monster =>
             {
-                var message = String.Format("Monster defeated at ({0}, {1})! Good job yolo team!", monster.Position.X, monster.Position.Y);
+                var message = String.Format("{0} defeated at ({1}, {2})! Good job yolo team!", monster.Name, monster.Position.X, monster.Position.Y);
                 _logger.Log(message);
             });
             

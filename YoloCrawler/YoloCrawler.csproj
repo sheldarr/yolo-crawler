@@ -57,6 +57,8 @@
     <Compile Include="Entities\WorldRepresentation.cs" />
     <Compile Include="Extensions\RoomExtensionMethods.cs" />
     <Compile Include="Entities\Point.cs" />
+    <Compile Include="Factories\MonsterNamesLoader.cs" />
+    <Compile Include="Factories\MonsterFactory.cs" />
     <Compile Include="Fighting\DummyFightingStrategy.cs" />
     <Compile Include="Fighting\RandomGenerator.cs" />
     <Compile Include="Fighting\TeamFightingStrategy.cs" />
@@ -80,6 +82,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="monsterNames.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="keyMapping.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

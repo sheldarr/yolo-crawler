@@ -17,7 +17,7 @@
             var dummyFightingStrategy = new DummyFightingStrategy(logger);
 
             var position = A.Dummy<Position>();
-            var monster = new Monster(position);
+            var monster = new Monster("TestMonster", position);
             var monsterHitPoints = monster.HitPoints;
 
             //when

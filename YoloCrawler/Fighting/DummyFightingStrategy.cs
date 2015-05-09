@@ -18,7 +18,8 @@
             const int damage = 1;
             monster.HitPoints -= damage;
 
-            var message = String.Format("YoloTeam attacking monster at ({0}, {1}). {2} damage! {3} hp left.",
+            var message = String.Format("YoloTeam attacking {0} at ({1}, {2}). {3} damage! {4} hp left.",
+                monster.Name,
                 monster.Position.X,
                 monster.Position.Y,
                 damage,
