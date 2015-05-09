@@ -1,6 +1,6 @@
 namespace YoloCrawler.Entities
 {
-    public enum TileTypes
+    public enum TileType
     {
         Wall,
         Floor,

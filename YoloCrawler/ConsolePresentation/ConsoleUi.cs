@@ -1,7 +1,9 @@
 ﻿namespace YoloCrawler.ConsolePresentation
 {
     using System;
-    using Entities;
+    using System.Globalization;
+    using Newtonsoft.Json;
+    using YoloCrawler.Entities;
 
     internal class ConsoleUi : Presentation
     {
@@ -42,7 +44,7 @@
 
         public void Draw(WorldRepresentation worldRepresentation)
         {
-            throw new NotImplementedException();
+            _logWindow.WriteLine(JsonConvert.SerializeObject(worldRepresentation.Team.Position).ToString(CultureInfo.InvariantCulture));
         }
     }
 }

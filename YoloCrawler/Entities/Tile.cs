@@ -2,18 +2,23 @@ namespace YoloCrawler.Entities
 {
     public class Tile
     {
-        private readonly TileTypes _wall;
+        private readonly TileType _type;
 
-        public Tile(TileTypes wall)
+        public Tile(TileType type)
         {
-            _wall = wall;
+            _type = type;
+        }
+
+        public TileType Type
+        {
+            get { return _type; }
         }
 
         public override string ToString()
         {
-            switch (_wall)
+            switch (_type)
             {
-                case TileTypes.Wall:
+                case TileType.Wall:
                     return "#";
                     break;
                 default:

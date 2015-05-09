@@ -1,5 +1,6 @@
 ﻿namespace YoloCrawler
 {
+    using System.Threading;
     using Entities;
     using Factories;
     using Fighting;
@@ -10,6 +11,7 @@
         private readonly Presentation _presentation;
         private Room _room;
         private YoloTeam _team;
+        private WorldRepresentation _worldRepresentation;
 
         public Engine(Presentation presentation)
         {
@@ -19,20 +21,33 @@
 
         private void InitializeGame()
         {
-            _room = RoomFactory.CreateEmptyRoom(16, 16);
+            var startingPosition = new Position(1, 1);
+
             var dummyFightingStrategy = new DummyFightingStrategy();
-            _team = new YoloTeam(_room, new Position(0, 0), dummyFightingStrategy);
+
+            _room = RoomFactory.CreateEmptyRoom(16, 16, startingPosition);
+            _team = new YoloTeam(_room, dummyFightingStrategy);
+            _worldRepresentation = new WorldRepresentation(_room, _team);
         }
 
         public void Move(Offset offset)
         {
             _team.Move(offset);
-            _presentation.Draw(new WorldRepresentation(_room, _team));
+            _worldRepresentation = new WorldRepresentation(_room, _team);
         }
 
         public void SayHello()
         {
             _presentation.Log("hello!");
+        }
+
+        public void Run()
+        {
+            while (true)
+            {
+                _presentation.Draw(_worldRepresentation);
+                Thread.Sleep(1000 / 24);
+            }
         }
     }
 

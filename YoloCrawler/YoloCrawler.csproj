@@ -67,7 +67,7 @@
     <Compile Include="Entities\Tile.cs" />
     <Compile Include="Entities\YoloTeam.cs" />
     <Compile Include="Factories\RoomFactory.cs" />
-    <Compile Include="Entities\TileTypes.cs" />
+    <Compile Include="Entities\TileType.cs" />
     <Compile Include="MovementOffsets.cs" />
     <Compile Include="Offset.cs" />
     <Compile Include="Presentation.cs" />
