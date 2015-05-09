@@ -6,7 +6,7 @@
     {
         public static Room WithRandomMonster(this Room room, Position position)
         {
-            var monster = new Monster(room, position);
+            var monster = new Monster(position);
 
             room.Monsters.Add(monster);
 

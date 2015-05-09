@@ -51,10 +51,13 @@
     <Compile Include="ConsolePresentation\ConsoleUi.cs" />
     <Compile Include="ConsolePresentation\ConsolePresentationConfiguration.cs" />
     <Compile Include="Entities\Dimensions.cs" />
+    <Compile Include="Entities\Map.cs" />
     <Compile Include="Entities\Monster.cs" />
+    <Compile Include="Entities\RoomCorridor.cs" />
     <Compile Include="Entities\WorldRepresentation.cs" />
     <Compile Include="Extensions\RoomExtensionMethods.cs" />
     <Compile Include="Entities\Point.cs" />
+    <Compile Include="Factories\MapFactory.cs" />
     <Compile Include="Fighting\RandomGenerator.cs" />
     <Compile Include="Fighting\TeamFightingStrategy.cs" />
     <Compile Include="Input\ConsoleInput.cs" />
