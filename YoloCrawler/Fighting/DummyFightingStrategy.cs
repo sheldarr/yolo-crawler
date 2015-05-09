@@ -4,7 +4,7 @@
     using ConsolePresentation;
     using Entities;
 
-    internal class DummyFightingStrategy : TeamFightingStrategy
+    public class DummyFightingStrategy : TeamFightingStrategy
     {
         private readonly Logger _logger;
 
