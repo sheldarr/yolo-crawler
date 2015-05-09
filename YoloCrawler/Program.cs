@@ -1,7 +1,7 @@
 ﻿namespace YoloCrawler
 {
-    using System;
     using System.Threading;
+    using ConsolePresentation;
 
     class Program
     {
@@ -31,7 +31,6 @@
             _engineInitialized.Set();
             while (true)
             {
-                Console.WriteLine("tick");
                 Thread.Sleep(1000);
             }
         }
