@@ -11,7 +11,7 @@
 
         public void SayHello()
         {
-            _pres.WriteLine("hello!");
+            _pres.Log("hello!");
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿namespace YoloCrawler
 {
     using System;
-    using System.Security.Cryptography.Xml;
 
     class ConsoleInput
     {

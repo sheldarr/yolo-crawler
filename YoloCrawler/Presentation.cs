@@ -2,6 +2,6 @@
 {
     internal interface Presentation
     {
-        void WriteLine(string output);
+        void Log(string output);
     }
 }
