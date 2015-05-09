@@ -28,7 +28,7 @@
         private void InitializeGame()
         {
             var startingPosition = new Position(1,1);
-            var roomSize = new Size(16, 16);
+            var roomSize = new Size(10, 10);
             var dummyFightingStrategy = new DummyFightingStrategy(_logger);
 
             _room = RoomFactory.CreateEmptyRoom(roomSize, startingPosition).WithRandomMonster(new Position(3, 3));
