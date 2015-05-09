@@ -1,6 +1,6 @@
 ﻿namespace YoloCrawler
 {
-    internal interface Presentation
+    public interface Presentation
     {
         void WriteLine(string output);
     }
