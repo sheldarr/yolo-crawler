@@ -28,8 +28,8 @@
 
         private void RunEngine()
         {
-            var mapSize = new Size(60, 20);
-            var consoleUi = new ConsoleUi(mapSize, new ConsolePresentationConfiguration());
+            var displaySize = new Size(60, 20);
+            var consoleUi = new ConsoleUi(displaySize, new ConsolePresentationConfiguration());
             var presentation = consoleUi as Presentation;
             var logger = consoleUi as Logger;
             _engine = new Engine(presentation, logger);
