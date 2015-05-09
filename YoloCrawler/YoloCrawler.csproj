@@ -38,6 +38,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,7 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleInput.cs" />
-    <Compile Include="ConsoleUi.cs" />
+    <Compile Include="ConsolePresentation\ConsoleState.cs" />
+    <Compile Include="ConsolePresentation\ConsoleUi.cs" />
+    <Compile Include="ConsolePresentation\Dimensions.cs" />
+    <Compile Include="ConsolePresentation\Point.cs" />
+    <Compile Include="ConsolePresentation\Size.cs" />
+    <Compile Include="ConsolePresentation\Window.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="KeyMapping.cs" />
     <Compile Include="KeyMappingLoader.cs" />
