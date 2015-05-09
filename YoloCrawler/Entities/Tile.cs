@@ -16,6 +16,8 @@ namespace YoloCrawler.Entities
                 case TileTypes.Wall:
                     return "#";
                     break;
+                case TileTypes.Floor:
+                    return ".";
                 default:
                     return "_";
             }

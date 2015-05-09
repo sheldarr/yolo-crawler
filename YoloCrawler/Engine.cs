@@ -1,27 +1,35 @@
 ﻿namespace YoloCrawler
 {
+    using YoloCrawler.Entities;
     public class Engine
+
     {
-        private readonly Presentation _pres;
+        private readonly Presentation _presentation;
+        private Room _room;
+        private YoloTeam _team;
 
-        public Engine(Presentation pres)
+        public Engine(Presentation presentation)
         {
-            _pres = pres;
+            _presentation = presentation;
+            InitializeGame();
         }
 
-        public void Move()
+        private void InitializeGame()
         {
-            
-        }
+            _room = new Room(16, 16);
+            _room.CreateEmptyRoom();
 
-        public void SayHello()
-        {
-            _pres.WriteLine("hello!");
+            _team = new YoloTeam(_room, new Position(0, 0));
         }
 
         public void Move(Offset offset)
         {
-            throw new System.NotImplementedException();
+            _team.Move(offset);
+        }
+
+        public void SayHello()
+        {
+            _presentation.WriteLine("hello!");
         }
     }
 }

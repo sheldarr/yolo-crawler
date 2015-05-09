@@ -49,8 +49,11 @@
     <Compile Include="ConsoleInput.cs" />
     <Compile Include="ConsoleUi.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="Entities\Position.cs" />
     <Compile Include="Entities\Room.cs" />
     <Compile Include="Entities\Tile.cs" />
+    <Compile Include="Entities\YoloTeam.cs" />
+    <Compile Include="Factories\RoomFactory.cs" />
     <Compile Include="KeyMapping.cs" />
     <Compile Include="KeyMappingLoader.cs" />
     <Compile Include="Entities\TileTypes.cs" />
