@@ -62,9 +62,12 @@
     <Compile Include="Factories\MapFactory.cs" />
     <Compile Include="Factories\MonsterNamesLoader.cs" />
     <Compile Include="Factories\MonsterFactory.cs" />
-    <Compile Include="Fighting\DummyFightingStrategy.cs" />
+    <Compile Include="Fighting\Damage.cs" />
+    <Compile Include="Entities\IAm.cs" />
+    <Compile Include="Fighting\ICanBeAttacked.cs" />
+    <Compile Include="Fighting\YoloTeamFightingStrategy.cs" />
     <Compile Include="Fighting\RandomGenerator.cs" />
-    <Compile Include="Fighting\TeamFightingStrategy.cs" />
+    <Compile Include="Fighting\FightingStrategy.cs" />
     <Compile Include="Input\ConsoleInput.cs" />
     <Compile Include="Input\KeyMapping.cs" />
     <Compile Include="Input\KeyMappingLoader.cs" />

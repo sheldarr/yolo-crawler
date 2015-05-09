@@ -14,7 +14,7 @@
         {
             //given
             var logger = A.Dummy<Logger>();
-            var dummyFightingStrategy = new DummyFightingStrategy(logger);
+            var dummyFightingStrategy = new YoloTeamFightingStrategy(logger);
 
             var position = A.Dummy<Position>();
             var monster = new Monster("TestMonster", position);

@@ -5,12 +5,12 @@ namespace YoloCrawler.Entities
     public class YoloTeam
     {
         private Position _position;
-        private readonly TeamFightingStrategy _teamFightingStrategy;
+        private readonly FightingStrategy _fightingStrategy;
 
-        public YoloTeam(TeamFightingStrategy teamFightingStrategy, Position startingPosition)
+        public YoloTeam(FightingStrategy fightingStrategy, Position startingPosition)
         {
             _position = startingPosition;
-            _teamFightingStrategy = teamFightingStrategy;
+            _fightingStrategy = fightingStrategy;
         }
 
         public Position Position
@@ -25,7 +25,7 @@ namespace YoloCrawler.Entities
 
         public void Attack(Monster monsterToAttack)
         {
-            _teamFightingStrategy.Attack(monsterToAttack);
+            _fightingStrategy.Attack(monsterToAttack);
         }
 
         public void EnterRoom(Position newRoomStartingPosition)

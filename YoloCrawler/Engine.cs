@@ -29,7 +29,7 @@
         {
             var startingPosition = new Position(1,1);
             var roomSize = new Size(10, 10);
-            var dummyFightingStrategy = new DummyFightingStrategy(_logger);
+            var dummyFightingStrategy = new YoloTeamFightingStrategy(_logger);
 
             var factory = new MapFactory(roomSize, startingPosition);
             Map = factory.GenerateRandomMap(4);
@@ -41,7 +41,8 @@
         public void Move(Offset offset)
         {
             YoloTeamAction(offset);
-            RemoveDeadMonsters(_room.Monsters);
+            _room.RemoveDeadMonsters(_logger);
+            _room.Monsters.ForEach(MonsterAction);
 
             _worldRepresentation = new WorldRepresentation(_room, _yoloTeam);
             _presentation.Draw(_worldRepresentation);
@@ -75,17 +76,9 @@
             }
         }
 
-        private void RemoveDeadMonsters(List<Monster> monsters)
+        private void MonsterAction(Monster monster)
         {
-            var monstersToRemove = monsters.Where(monster => monster.IsDead).ToList();
-
-            monstersToRemove.ForEach(monster =>
-            {
-                var message = String.Format("{0} defeated at ({1}, {2})! Good job #yolo team!", monster.Name, monster.Position.X, monster.Position.Y);
-                _logger.Log(message);
-            });
             
-            monsters.RemoveAll(monster => monster.IsDead);
         }
 
         public void Run()

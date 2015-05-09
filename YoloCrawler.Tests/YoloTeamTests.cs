@@ -9,7 +9,7 @@
     [TestFixture]
     public class YoloTeamTests
     {
-        private readonly TeamFightingStrategy _dummyFightingStrategy = A.Dummy<TeamFightingStrategy>();
+        private readonly FightingStrategy _dummyFightingStrategy = A.Dummy<FightingStrategy>();
 
         [Test]
         public void ShouldMoveInRoomWhenPossible()
@@ -17,7 +17,7 @@
             // given
             var room = RoomFactory.CreateEmptyRoom(new Size(4, 4), new Position(1, 1));
 
-            var fightingStrategy = A.Dummy<TeamFightingStrategy>();
+            var fightingStrategy = A.Dummy<FightingStrategy>();
 
             var team = new YoloTeam(fightingStrategy, room.StartingPosition);
 

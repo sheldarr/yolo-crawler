@@ -2,9 +2,8 @@ namespace YoloCrawler.Entities
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
-    using System.Security.Cryptography.X509Certificates;
+    using Microsoft.Build.Utilities;
 
     public class Room
     {
@@ -98,6 +97,19 @@ namespace YoloCrawler.Entities
         public bool MonsterOccupiesPosition(Position position)
         {
             return Monsters.Any(monster => Equals(monster.Position, position));
+        }
+
+        public void RemoveDeadMonsters(ConsolePresentation.Logger logger)
+        {
+            var monstersToRemove = Monsters.Where(monster => monster.IsDead).ToList();
+
+            monstersToRemove.ForEach(monster =>
+            {
+                var message = String.Format("{0} defeated at ({1}, {2})! Good job #yolo team!", monster.Name, monster.Position.X, monster.Position.Y);
+                logger.Log(message);
+            });
+
+            Monsters.RemoveAll(monster => monster.IsDead);
         }
     }
 }
