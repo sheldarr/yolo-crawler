@@ -1,18 +1,15 @@
 namespace YoloCrawler.Entities
 {
-    using System.Linq;
     using Fighting;
 
     public class YoloTeam
     {
-        private readonly Room _room;
         private Position _position;
         private readonly TeamFightingStrategy _teamFightingStrategy;
 
-        public YoloTeam(Room room, TeamFightingStrategy teamFightingStrategy)
+        public YoloTeam(TeamFightingStrategy teamFightingStrategy, Position startingPosition)
         {
-            _room = room;
-            _position = _room.StartingPosition;
+            _position = startingPosition;
             _teamFightingStrategy = teamFightingStrategy;
         }
 
@@ -23,27 +20,17 @@ namespace YoloCrawler.Entities
 
         public void Move(Offset offset)
         {
-            var nextPosition = _position + offset;
-
-            if (_room.Tiles[nextPosition.X, nextPosition.Y].Type == TileType.Wall)
-            {
-                return;
-            }
-
-            if (MonsterOccupiesPosition(nextPosition))
-            {
-                var monsterToAttack = _room.Monsters.FirstOrDefault(monster => Equals(monster.Position, nextPosition));
-                _teamFightingStrategy.Attack(monsterToAttack);
-             
-                return;
-            }
-
             _position += offset;
         }
 
-        public bool MonsterOccupiesPosition(Position position)
+        public void Attack(Monster monsterToAttack)
         {
-            return _room.Monsters.Any(monster => Equals(monster.Position, position));
+            _teamFightingStrategy.Attack(monsterToAttack);
+        }
+
+        public void EnterRoom(Position newRoomStartingPosition)
+        {
+            _position = newRoomStartingPosition;
         }
     }
 }

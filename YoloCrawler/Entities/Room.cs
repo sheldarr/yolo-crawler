@@ -3,6 +3,7 @@ namespace YoloCrawler.Entities
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Linq;
     using System.Security.Cryptography.X509Certificates;
 
     public class Room
@@ -92,6 +93,11 @@ namespace YoloCrawler.Entities
             var y = new Random().Next(2, _size.Height - 1);
 
             return new Position(x, y);
+        }
+
+        public bool MonsterOccupiesPosition(Position position)
+        {
+            return Monsters.Any(monster => Equals(monster.Position, position));
         }
     }
 }

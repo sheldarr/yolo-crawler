@@ -6,7 +6,6 @@
     using System.Threading;
     using ConsolePresentation;
     using Entities;
-    using Extensions;
     using Factories;
     using Fighting;
 
@@ -14,8 +13,8 @@
     {
         private readonly Presentation _presentation;
         private readonly Logger _logger;
+        private YoloTeam _yoloTeam;
         private Room _room;
-        private YoloTeam _team;
         private WorldRepresentation _worldRepresentation;
         public Map Map { get; set; }
 
@@ -35,16 +34,45 @@
             var factory = new MapFactory(roomSize, startingPosition);
             Map = factory.GenerateRandomMap(4);
             _room = Map.GetRandomRoom();
-            _team = new YoloTeam(_room, dummyFightingStrategy);
-            _worldRepresentation = new WorldRepresentation(_room, _team);
+            _yoloTeam = new YoloTeam(dummyFightingStrategy, _room.StartingPosition);
+            _worldRepresentation = new WorldRepresentation(_room, _yoloTeam);
         }
 
         public void Move(Offset offset)
         {
-            _team.Move(offset);
-            _worldRepresentation = new WorldRepresentation(_room, _team);
-            RemoveDeadMonsters(_room.Monsters);            
+            YoloTeamAction(offset);
+            RemoveDeadMonsters(_room.Monsters);
+
+            _worldRepresentation = new WorldRepresentation(_room, _yoloTeam);
             _presentation.Draw(_worldRepresentation);
+        }
+
+        private void YoloTeamAction(Offset offset)
+        {
+            var nextPosition = _yoloTeam.Position + offset;
+
+            var nextTile = _room.Tiles[nextPosition.X, nextPosition.Y];
+
+            if (nextTile.Type == TileType.Wall)
+            {
+                return;
+            }
+
+            if (_room.MonsterOccupiesPosition(nextPosition))
+            {
+                var monsterToAttack = _room.Monsters.FirstOrDefault(monster => Equals(monster.Position, nextPosition));
+                _yoloTeam.Attack(monsterToAttack);
+
+                return;
+            }
+
+            _yoloTeam.Move(offset);
+
+            if (nextTile.Type == TileType.Door)
+            {
+                _room = nextTile.GetNextRoom();
+                _yoloTeam.EnterRoom(_room.StartingPosition);
+            }
         }
 
         private void RemoveDeadMonsters(List<Monster> monsters)
@@ -53,7 +81,7 @@
 
             monstersToRemove.ForEach(monster =>
             {
-                var message = String.Format("{0} defeated at ({1}, {2})! Good job yolo team!", monster.Name, monster.Position.X, monster.Position.Y);
+                var message = String.Format("{0} defeated at ({1}, {2})! Good job #yolo team!", monster.Name, monster.Position.X, monster.Position.Y);
                 _logger.Log(message);
             });
             
