@@ -53,10 +53,13 @@
     <Compile Include="ConsolePresentation\ConsolePresentationConfiguration.cs" />
     <Compile Include="ConsolePresentation\Logger.cs" />
     <Compile Include="Entities\Dimensions.cs" />
+    <Compile Include="Entities\Map.cs" />
     <Compile Include="Entities\Monster.cs" />
+    <Compile Include="Entities\RoomCorridor.cs" />
     <Compile Include="Entities\WorldRepresentation.cs" />
     <Compile Include="Extensions\RoomExtensionMethods.cs" />
     <Compile Include="Entities\Point.cs" />
+    <Compile Include="Factories\MapFactory.cs" />
     <Compile Include="Factories\MonsterNamesLoader.cs" />
     <Compile Include="Factories\MonsterFactory.cs" />
     <Compile Include="Fighting\DummyFightingStrategy.cs" />
@@ -86,7 +89,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="keyMapping.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

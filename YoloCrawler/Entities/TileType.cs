@@ -4,7 +4,7 @@ namespace YoloCrawler.Entities
     {
         Wall,
         Floor,
-        Exit,
+        Doors,
         Monster,
         Team
     }

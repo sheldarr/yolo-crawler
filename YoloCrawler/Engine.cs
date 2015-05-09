@@ -17,6 +17,7 @@
         private Room _room;
         private YoloTeam _team;
         private WorldRepresentation _worldRepresentation;
+        public Map Map { get; set; }
 
         public Engine(Presentation presentation, Logger logger)
         {
@@ -31,7 +32,9 @@
             var roomSize = new Size(10, 10);
             var dummyFightingStrategy = new DummyFightingStrategy(_logger);
 
-            _room = RoomFactory.CreateEmptyRoom(roomSize, startingPosition).WithRandomMonster(new Position(3, 3));
+            var factory = new MapFactory(roomSize, startingPosition);
+            Map = factory.GenerateRandomMap(4);
+            _room = Map.GetRandomRoom();
             _team = new YoloTeam(_room, dummyFightingStrategy);
             _worldRepresentation = new WorldRepresentation(_room, _team);
         }
