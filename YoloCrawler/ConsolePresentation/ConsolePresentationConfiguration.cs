@@ -34,5 +34,10 @@
         {
             get { return 'Y'; }
         }
+
+        public char MonsterCharacter
+        {
+            get { return 'M'; }
+        }
     }
 }

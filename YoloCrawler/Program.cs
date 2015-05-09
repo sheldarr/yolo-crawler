@@ -27,7 +27,7 @@
 
         private void RunEngine()
         {
-            var mapSize = new Size(60, 16);
+            var mapSize = new Size(60, 20);
             var presentation = new ConsoleUi(mapSize, new ConsolePresentationConfiguration());
             _engine = new Engine(presentation);
             _engineInitialized.Set();
