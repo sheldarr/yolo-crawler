@@ -2,6 +2,7 @@ namespace YoloCrawler.Entities
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Security.Cryptography.X509Certificates;
 
     public class Room
@@ -83,6 +84,14 @@ namespace YoloCrawler.Entities
 
             // down
             Tiles[x, _size.Height - 1].AddDoorTo(newRoom);
+        }
+
+        public Position GetRandomAvailablePosition()
+        {
+            var x = new Random().Next(2, _size.Width - 1);
+            var y = new Random().Next(2, _size.Height - 1);
+
+            return new Position(x, y);
         }
     }
 }

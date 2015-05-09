@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using YoloCrawler.Entities;
+    using YoloCrawler.Extensions;
 
     public class MapFactory
     {
@@ -43,7 +44,7 @@
 
         private Room GetNewRoom(Size size, Position startingPosition)
         {
-            return RoomFactory.CreateEmptyRoom(size, startingPosition);
+            return RoomFactory.CreateEmptyRoom(size, startingPosition).WithRandomMonster();
         }
 
         private List<Room> GenerateNeighbours(Room room, int minCount, int maxCount)

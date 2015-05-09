@@ -1,12 +1,15 @@
 ﻿namespace YoloCrawler.Extensions
 {
+    using System;
     using Entities;
+    using Factories;
 
     public static class RoomExtensionMethods
     {
-        public static Room WithRandomMonster(this Room room, Position position)
+        public static Room WithRandomMonster(this Room room)
         {
-            var monster = new Monster(position);
+            Position randomAvailablePosition = room.GetRandomAvailablePosition();
+            var monster = MonsterFactory.CreateRandomMonster(room, randomAvailablePosition);
 
             room.Monsters.Add(monster);
 
