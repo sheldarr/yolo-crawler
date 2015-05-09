@@ -32,16 +32,13 @@ namespace YoloCrawler.Entities
 
             if (MonsterOccupiesPosition(nextPosition))
             {
-                AttackMonster();
+                var monsterToAttack = _room.Monsters.FirstOrDefault(monster => Equals(monster.Position, nextPosition));
+                _teamFightingStrategy.Attack(monsterToAttack);
+             
+                return;
             }
 
             _position += offset;
-        }
-
-        private void AttackMonster()
-        {
-            var monsterToAttack = _room.Monsters.Single(monster => Equals(monster.Position, _position));
-            _teamFightingStrategy.Attack(monsterToAttack);
         }
 
         public bool MonsterOccupiesPosition(Position position)
