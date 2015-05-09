@@ -8,22 +8,43 @@
         {
             var room = new Room(width, height);
 
-            for (int w = 0; w < width; w++)
-            {
-                for (int h = 0; h < height; h++)
-                {
-                    room.Tiles[w, h] = new Tile(TileTypes.Floor);
-                }
-            }
+            CreateFloor(room);
+            CreateWalls(room);
 
             return room;
         }
 
+        private static void CreateFloor(Room room)
+        {
+            for (int w = 1; w < room.Size.Width - 1; w++)
+            {
+                for (int h = 1; h < room.Size.Height - 1; h++)
+                {
+                    room.Tiles[w, h] = new Tile(TileTypes.Floor);
+                }
+            }
+        }
+
         private static void CreateWalls(Room room)
         {
-            for (int i = 0; i < room.height; i++)
+            for (var w = 0; w < room.Size.Width; w++)
             {
-                
+                room.Tiles[w, 0] = new Tile(TileTypes.Wall);
+            }
+
+            for (var w = 0; w < room.Size.Width; w++)
+            {
+                room.Tiles[w, room.Size.Height - 1] = new Tile(TileTypes.Wall);
+            }
+
+            for (var h = 0; h < room.Size.Height; h++)
+            {
+                room.Tiles[0, h] = new Tile(TileTypes.Wall);
+            }
+
+            for (var h = 0; h < room.Size.Height; h++)
+            {
+                room.Tiles[room.Size.Width - 1, h] = new Tile(TileTypes.Wall);
             }
         }
     }

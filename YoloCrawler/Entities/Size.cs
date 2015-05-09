@@ -1,6 +1,6 @@
-namespace YoloCrawler.ConsolePresentation
+namespace YoloCrawler.Entities
 {
-    internal struct Size
+    public struct Size
     {
         public int Height;
         public int Width;

@@ -3,7 +3,7 @@ namespace YoloCrawler.Entities
     public class YoloTeam
     {
         private readonly Room _room;
-        private readonly Position _position;
+        private Position _position;
 
         public YoloTeam(Room room, Position position)
         {
@@ -18,7 +18,7 @@ namespace YoloCrawler.Entities
 
         public void Move(Offset offset)
         {
-            
+            _position += offset;
         }
     }
 }

@@ -52,11 +52,11 @@
     <Compile Include="ConsolePresentation\ConsoleUi.cs" />
     <Compile Include="ConsolePresentation\Dimensions.cs" />
     <Compile Include="ConsolePresentation\Point.cs" />
-    <Compile Include="ConsolePresentation\Size.cs" />
     <Compile Include="ConsolePresentation\Window.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Entities\Position.cs" />
     <Compile Include="Entities\Room.cs" />
+    <Compile Include="Entities\Size.cs" />
     <Compile Include="Entities\Tile.cs" />
     <Compile Include="Entities\YoloTeam.cs" />
     <Compile Include="Factories\RoomFactory.cs" />

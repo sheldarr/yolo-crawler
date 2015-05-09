@@ -1,6 +1,8 @@
 ﻿namespace YoloCrawler
 {
     using YoloCrawler.Entities;
+    using YoloCrawler.Factories;
+
     public class Engine
 
     {
@@ -16,8 +18,7 @@
 
         private void InitializeGame()
         {
-            _room = new Room(16, 16);
-            _room.CreateEmptyRoom();
+            _room = RoomFactory.CreateEmptyRoom(16, 16);
 
             _team = new YoloTeam(_room, new Position(0, 0));
         }
@@ -29,7 +30,7 @@
 
         public void SayHello()
         {
-            _presentation.WriteLine("hello!");
+            _presentation.Log("hello!");
         }
     }
 }

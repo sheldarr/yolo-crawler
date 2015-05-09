@@ -2,8 +2,8 @@ namespace YoloCrawler.Entities
 {
     public class Position
     {
-        private readonly int _x;
-        private readonly int _y;
+        private int _x;
+        private int _y;
 
         public Position(int x, int y)
         {
@@ -21,6 +21,14 @@ namespace YoloCrawler.Entities
             }
 
             return _x == position._x && _y == position._y;
+        }
+
+        public static Position operator + (Position position, Offset offset)
+        {
+            position._x += offset.X;
+            position._y += offset.Y;
+
+            return position;
         }
     }
 }

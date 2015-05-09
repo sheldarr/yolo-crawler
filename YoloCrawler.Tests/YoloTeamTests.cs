@@ -1,8 +1,8 @@
 ﻿namespace YoloCrawler.Tests
 {
     using NUnit.Framework;
-    using NUnit.Framework.Constraints;
     using YoloCrawler.Entities;
+    using YoloCrawler.Factories;
 
     [TestFixture]
     public class YoloTeamTests
@@ -11,8 +11,7 @@
         public void ShouldMoveInRoomWhenPossible()
         {
             // given
-            var room = new Room(4, 4);
-            room.CreateEmptyRoom();
+            var room = RoomFactory.CreateEmptyRoom(4, 4);
 
             var position = new Position(1, 1);
 
