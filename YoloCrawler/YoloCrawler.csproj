@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -50,11 +51,18 @@
     <Compile Include="ConsolePresentation\ConsoleState.cs" />
     <Compile Include="ConsolePresentation\ConsoleUi.cs" />
     <Compile Include="ConsolePresentation\ConsolePresentationConfiguration.cs" />
+    <Compile Include="ConsolePresentation\Logger.cs" />
     <Compile Include="Entities\Dimensions.cs" />
+    <Compile Include="Entities\Map.cs" />
     <Compile Include="Entities\Monster.cs" />
+    <Compile Include="Entities\RoomCorridor.cs" />
     <Compile Include="Entities\WorldRepresentation.cs" />
     <Compile Include="Extensions\RoomExtensionMethods.cs" />
     <Compile Include="Entities\Point.cs" />
+    <Compile Include="Factories\MapFactory.cs" />
+    <Compile Include="Factories\MonsterNamesLoader.cs" />
+    <Compile Include="Factories\MonsterFactory.cs" />
+    <Compile Include="Fighting\DummyFightingStrategy.cs" />
     <Compile Include="Fighting\RandomGenerator.cs" />
     <Compile Include="Fighting\TeamFightingStrategy.cs" />
     <Compile Include="Input\ConsoleInput.cs" />
@@ -77,8 +85,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="keyMapping.json">
+    <None Include="monsterNames.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="keyMapping.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

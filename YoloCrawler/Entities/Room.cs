@@ -2,6 +2,8 @@ namespace YoloCrawler.Entities
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Security.Cryptography.X509Certificates;
 
     public class Room
     {
@@ -40,10 +42,56 @@ namespace YoloCrawler.Entities
             {
                 for (int w = 0; w < _size.Width; w++)
                 {
-                    Console.Write(_tiles[w,h]);
+                    Console.Write(_tiles[w, h]);
                 }
                 Console.WriteLine();
             }
+        }
+
+        public void AddLink(Room newRoom)
+        {
+            var horizontalOrVertical = (new Random()).Next(0, 1);
+
+            if (horizontalOrVertical == 0) //vertical
+            {
+                var leftOrRight = (new Random()).Next(0, 1);
+                var y = (new Random()).Next(1, _size.Height - 2);
+
+                if (leftOrRight == 0)
+                {
+                    //left
+                    Tiles[0, y].AddDoorTo(newRoom);
+
+                    return;
+                }
+
+                // right
+                Tiles[_size.Width - 1, y].AddDoorTo(newRoom);
+
+                return;
+            }
+
+            // horizontal
+            var x = (new Random()).Next(1, _size.Width - 2);
+
+            var upOrDown = (new Random()).Next(0, 1);
+            if (upOrDown == 0) //up
+            {
+                Tiles[x, 0].AddDoorTo(newRoom);
+
+                return;
+            }
+
+            // down
+            Tiles[x, _size.Height - 1].AddDoorTo(newRoom);
+        }
+
+        public Position GetRandomAvailablePosition()
+        {
+            var x = new Random().Next(2, _size.Width - 1);
+            var y = new Random().Next(2, _size.Height - 1);
+
+            return new Position(x, y);
         }
     }
 }

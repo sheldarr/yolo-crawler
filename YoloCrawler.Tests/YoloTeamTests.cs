@@ -9,6 +9,8 @@
     [TestFixture]
     public class YoloTeamTests
     {
+        private readonly TeamFightingStrategy _dummyFightingStrategy = A.Dummy<TeamFightingStrategy>();
+
         [Test]
         public void ShouldMoveInRoomWhenPossible()
         {
@@ -33,10 +35,8 @@
             var startingPosition = new Position(1, 1);
             var room = RoomFactory.CreateEmptyRoom(new Size(4,4), startingPosition);
 
-            var dummyFightingStrategy = A.Dummy<TeamFightingStrategy>();
-
             // when
-            var team = new YoloTeam(room, dummyFightingStrategy);
+            var team = new YoloTeam(room, _dummyFightingStrategy);
 
             // then
             Assert.That(team.Position, Is.EqualTo(startingPosition));
@@ -49,9 +49,7 @@
             var startingPosition = new Position(1, 1);
             var room = RoomFactory.CreateEmptyRoom(new Size(4,4), startingPosition);
 
-            var dummyFightingStrategy = A.Dummy<TeamFightingStrategy>();
-
-            var team = new YoloTeam(room, dummyFightingStrategy);
+            var team = new YoloTeam(room, _dummyFightingStrategy);
 
             // when
             team.Move(MovementOffsets.LeftUp);
