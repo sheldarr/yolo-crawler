@@ -104,15 +104,19 @@ namespace YoloCrawler.Entities
 
         public Tile GetDoorTo(Room room)
         {
+            var doors = new List<Tile>();
+
             foreach (var tile in Tiles)
             {
-                if (tile.Type == TileType.Door && tile.HasDoorTo(room))
+                if (tile.Type == TileType.Door)
                 {
-                    return tile;
+                    doors.Add(tile);
                 }
             }
 
-            throw new Exception("sth went wrong");
+            var door = doors.Single(t => t.HasDoorTo(room));
+
+            return door;
         }
     }
 }

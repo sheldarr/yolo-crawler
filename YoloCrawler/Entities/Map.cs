@@ -5,11 +5,13 @@ namespace YoloCrawler.Entities
 
     public class Map
     {
+        private readonly Random _random;
         public List<Room> Rooms { get; set; }
 
         public Map()
         {
             Rooms = new List<Room>();
+            _random = new Random();
         }
 
         public void AddRoom(Room room)
@@ -19,7 +21,7 @@ namespace YoloCrawler.Entities
 
         public Room GetRandomRoom()
         {
-            var randomIndex = (new Random()).Next(0, Rooms.Count - 1);
+            var randomIndex = _random.Next(0, Rooms.Count - 1);
 
             return Rooms[randomIndex];
         }

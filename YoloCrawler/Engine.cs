@@ -27,12 +27,8 @@
 
         private void InitializeGame()
         {
-            var startingPosition = new Position(1,1);
-            var roomSize = new Size(10, 10);
             var dummyFightingStrategy = new DummyFightingStrategy(_logger);
-
-            var factory = new MapFactory(roomSize, startingPosition);
-            Map = factory.GenerateRandomMap(4);
+            Map = MapFactory.GenerateRandomMap(4);
             _room = Map.GetRandomRoom();
             _yoloTeam = new YoloTeam(dummyFightingStrategy, _room.StartingPosition);
             _worldRepresentation = new WorldRepresentation(_room, _yoloTeam);
@@ -67,19 +63,20 @@
                 return;
             }
 
-            _yoloTeam.Move(offset);
-
             if (nextTile.Type == TileType.Door)
             {
                 EnterNextRoom(nextTile);
+                return;
             }
+
+            _yoloTeam.Move(offset);
         }
 
         private void EnterNextRoom(Tile nextTile)
         {
             var nextRoom = nextTile.GetRoom();
             Tile doorToNextRoom = nextRoom.GetDoorTo(_room);
-            _yoloTeam.EnterRoom(doorToNextRoom.GetStartingPosition());
+            _yoloTeam.EnterRoom(doorToNextRoom.GetStartingPosition(nextRoom));
             _room = nextRoom;
         }
 

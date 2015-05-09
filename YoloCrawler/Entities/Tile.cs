@@ -23,23 +23,22 @@ namespace YoloCrawler.Entities
             return _room;
         }
 
-        public Position GetStartingPosition()
+        public Position GetStartingPosition(Room nextRoom)
         {
             if (_position.X == 0)
             {
                 return new Position(1, _position.Y);
             }
-            if (_position.X == _room.Size.Width - 1)
+            if (_position.X == nextRoom.Size.Width - 1)
             {
-                return new Position(_room.Size.Width - 2, _position.Y);
+                return new Position(nextRoom.Size.Width - 2, _position.Y);
             }
             if (_position.Y == 0)
             {
                 return new Position(_position.X, 1);
             }
-            
-            
-            return new Position(_position.X, _room.Size.Height - 2);
+
+            return new Position(_position.X, nextRoom.Size.Height - 2);
         }
 
         public bool HasDoorTo(Room room)

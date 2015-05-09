@@ -7,20 +7,11 @@
 
     public class MapFactory
     {
-        private readonly Position _startingPosition;
-        private readonly Size _size;
-        private readonly Random _random;
+        private static readonly Random Random = new Random();
 
-        public MapFactory(Size roomSize, Position startingPosition)
+        public static Map GenerateRandomMap(int roomCount)
         {
-            _size = roomSize;
-            _startingPosition = startingPosition;
-            _random = new Random();
-        }
-
-        public Map GenerateRandomMap(int roomCount)
-        {
-            var origin = GetNewRoom(_size, _startingPosition);
+            var origin = GetNewRandomRoom();
 
             var rooms = new List<Room>();
             var neighbourQueue = new Queue<Room>();
@@ -44,15 +35,15 @@
             };
         }
 
-        private List<Room> GenerateNeighbours(Room room, int minCount, int maxCount)
+        private static List<Room> GenerateNeighbours(Room room, int minCount, int maxCount)
         {
-            var neighbourCount = _random.Next(minCount, maxCount);
+            var neighbourCount = Random.Next(minCount, maxCount);
 
             var rooms = new List<Room>();
 
-            for (int i = 0; i < neighbourCount; i++)
+            for (var i = 0; i < neighbourCount; i++)
             {
-                var newRoom = GetNewRoom(_size, _startingPosition);
+                var newRoom = GetNewRandomRoom();
                 rooms.Add(newRoom);
 
                 room.AddLink(newRoom);
@@ -62,9 +53,23 @@
             return rooms;
         }
 
-        private Room GetNewRoom(Size size, Position startingPosition)
+        private static Room GetNewRandomRoom()
         {
-            return RoomFactory.CreateEmptyRoom(size, startingPosition).WithRandomMonster();
+            var randomWidth = 9;
+            while (randomWidth % 2 != 0)
+            {
+                randomWidth = Random.Next(4, 58);
+            }
+
+            var randomHeight = 9;
+            while (randomHeight % 2 != 0)
+            {
+                randomHeight = Random.Next(4, 18);
+            }
+
+            var roomSize = new Size(randomWidth, randomHeight);
+            var startingPosition = new Position(1, 1);
+            return RoomFactory.CreateEmptyRoom(roomSize, startingPosition).WithRandomMonster();
         }
     }
 }
