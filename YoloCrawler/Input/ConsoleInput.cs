@@ -1,4 +1,4 @@
-﻿namespace YoloCrawler
+﻿namespace YoloCrawler.Input
 {
     using System;
 

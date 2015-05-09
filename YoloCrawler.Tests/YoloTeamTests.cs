@@ -1,5 +1,7 @@
 ﻿namespace YoloCrawler.Tests
 {
+    using FakeItEasy;
+    using Fighting;
     using NUnit.Framework;
     using Entities;
     using Factories;
@@ -15,7 +17,9 @@
 
             var position = new Position(1, 1);
 
-            var team = new YoloTeam(room, position);
+            var fightingStrategy = A.Dummy<TeamFightingStrategy>();
+
+            var team = new YoloTeam(room, position, fightingStrategy);
 
             // when
             team.Move(MovementOffsets.RightDown);

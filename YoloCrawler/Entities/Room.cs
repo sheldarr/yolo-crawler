@@ -1,11 +1,14 @@
 namespace YoloCrawler.Entities
 {
     using System;
+    using System.Collections.Generic;
 
     public class Room
     {
         private readonly Tile[,] _tiles;
         private readonly Size _size;
+
+        public List<Monster> Monsters { get; set; }
 
         public Room(int width, int height)
         {

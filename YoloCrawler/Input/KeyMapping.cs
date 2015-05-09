@@ -1,4 +1,4 @@
-﻿namespace YoloCrawler
+﻿namespace YoloCrawler.Input
 {
     using System;
 
@@ -14,4 +14,4 @@
         public ConsoleKey RightDown { get; set; }
         public ConsoleKey Quit { get; set; }
     }
-}
+} 

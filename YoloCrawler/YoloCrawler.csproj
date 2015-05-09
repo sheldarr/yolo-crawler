@@ -51,6 +51,10 @@
     <Compile Include="ConsolePresentation\ConsoleState.cs" />
     <Compile Include="ConsolePresentation\ConsoleUi.cs" />
     <Compile Include="Dimensions.cs" />
+    <Compile Include="Entities\Monster.cs" />
+    <Compile Include="Extensions\RoomExtensionMethods.cs" />
+    <Compile Include="Fighting\RandomGenerator.cs" />
+    <Compile Include="Fighting\TeamFightingStrategy.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="ConsolePresentation\Window.cs" />
     <Compile Include="Engine.cs" />

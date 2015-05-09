@@ -1,7 +1,8 @@
 ﻿namespace YoloCrawler
 {
-    using YoloCrawler.Entities;
-    using YoloCrawler.Factories;
+    using Entities;
+    using Factories;
+    using Fighting;
 
     public class Engine
 
@@ -19,8 +20,8 @@
         private void InitializeGame()
         {
             _room = RoomFactory.CreateEmptyRoom(16, 16);
-
-            _team = new YoloTeam(_room, new Position(0, 0));
+            var dummyFightingStrategy = new DummyFightingStrategy();
+            _team = new YoloTeam(_room, new Position(0, 0), dummyFightingStrategy);
         }
 
         public void Move(Offset offset)
@@ -31,6 +32,14 @@
         public void SayHello()
         {
             _presentation.Log("hello!");
+        }
+    }
+
+    internal class DummyFightingStrategy : TeamFightingStrategy
+    {
+        public void Attack(Monster monster)
+        {
+            monster.HitPoints -= 1;
         }
     }
 }

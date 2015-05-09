@@ -2,6 +2,7 @@
 {
     using System.Threading;
     using ConsolePresentation;
+    using Input;
 
     class Program
     {
