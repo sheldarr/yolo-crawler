@@ -112,5 +112,16 @@
             Console.CursorLeft = _savedConsoleState.CursorLeft;
             Console.CursorTop = _savedConsoleState.CursorTop;
         }
+
+        public void WriteLines(List<string> displayLines)
+        {
+            SaveConsoleState();
+
+            _linesBuffer.AddRange(displayLines);
+
+            DisplayLines();
+
+            ReloadConsoleState();
+        }
     }
 }
