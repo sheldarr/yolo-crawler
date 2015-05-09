@@ -4,7 +4,6 @@ namespace YoloCrawler.Fighting
 
     public interface ICanBeAttacked : IAm
     {
-        int Hitpoints { get; }
         void Take(Damage dmg);
     }
 }

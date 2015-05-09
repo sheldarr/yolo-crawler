@@ -101,14 +101,6 @@ namespace YoloCrawler.Entities
 
         public void RemoveDeadMonsters(ConsolePresentation.Logger logger)
         {
-            var monstersToRemove = Monsters.Where(monster => monster.IsDead).ToList();
-
-            monstersToRemove.ForEach(monster =>
-            {
-                var message = String.Format("{0} defeated at ({1}, {2})! Good job #yolo team!", monster.Name, monster.Position.X, monster.Position.Y);
-                logger.Log(message);
-            });
-
             Monsters.RemoveAll(monster => monster.IsDead);
         }
     }

@@ -4,5 +4,6 @@ namespace YoloCrawler.Entities
     {
         string Name { get; }
         Position Position { get; }
+        int Hitpoints { get; }
     }
 }

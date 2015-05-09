@@ -2,13 +2,8 @@ namespace YoloCrawler.Entities
 {
     using Fighting;
 
-    public class YoloTeam : ICanAttack, ICanBeAttacked
+    public class YoloTeam : Being, ICanAttack, ICanBeAttacked
     {
-        public string Name { get; private set; }
-        public Position Position { get; private set; }
-
-        public int Hitpoints { get; private set; }
-
         public YoloTeam(Position startingPosition)
         {
             Position = startingPosition;

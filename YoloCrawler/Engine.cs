@@ -1,13 +1,10 @@
 ﻿namespace YoloCrawler
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using ConsolePresentation;
     using Entities;
     using Factories;
-    using Fighting;
 
     public class Engine
     {
@@ -39,6 +36,11 @@
 
         public void Move(Offset offset)
         {
+            if (WinLossConditionsMet())
+            {
+                return;
+            }
+
             YoloTeamAction(offset);
             _room.RemoveDeadMonsters(_logger);
             _room.Monsters.ForEach(MonsterAction);
@@ -99,6 +101,24 @@
             while (true)
             {
                 Thread.Sleep(1000 / 24);
+
+                if (WinLossConditionsMet())
+                {
+                    break;
+                }
+            }
+        }
+
+        private bool WinLossConditionsMet()
+        {
+            return _yoloTeam.IsDead;
+        }
+
+        public void AnounceResult()
+        {
+            if (_yoloTeam.IsDead)
+            {
+                _logger.Log("LOL YOU DIED, TRY AGAIN (#YOLO)");
             }
         }
     }
