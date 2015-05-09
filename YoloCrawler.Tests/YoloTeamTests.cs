@@ -19,7 +19,7 @@
 
             var fightingStrategy = A.Dummy<TeamFightingStrategy>();
 
-            var team = new YoloTeam(room, fightingStrategy);
+            var team = new YoloTeam(fightingStrategy, room.StartingPosition);
 
             // when
             team.Move(MovementOffsets.RightDown);
@@ -36,23 +36,7 @@
             var room = RoomFactory.CreateEmptyRoom(new Size(4,4), startingPosition);
 
             // when
-            var team = new YoloTeam(room, _dummyFightingStrategy);
-
-            // then
-            Assert.That(team.Position, Is.EqualTo(startingPosition));
-        }
-
-        [Test]
-        public void ShouldNotAllowWalkingIntoTheWall()
-        {
-            // given
-            var startingPosition = new Position(1, 1);
-            var room = RoomFactory.CreateEmptyRoom(new Size(4,4), startingPosition);
-
-            var team = new YoloTeam(room, _dummyFightingStrategy);
-
-            // when
-            team.Move(MovementOffsets.LeftUp);
+            var team = new YoloTeam(_dummyFightingStrategy, room.StartingPosition);
 
             // then
             Assert.That(team.Position, Is.EqualTo(startingPosition));

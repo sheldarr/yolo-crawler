@@ -13,7 +13,12 @@ namespace YoloCrawler.Entities
         public void AddDoorTo(Room room)
         {
             _room = room;
-            Type = TileType.Doors;
+            Type = TileType.Door;
+        }
+
+        public Room GetNextRoom()
+        {
+            return _room;
         }
     }
 }
