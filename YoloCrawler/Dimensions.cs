@@ -1,5 +1,7 @@
 namespace YoloCrawler
 {
+    using YoloCrawler.Entities;
+
     internal struct Dimensions
     {
         public Point Origin;

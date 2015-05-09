@@ -46,10 +46,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="YoloTeamTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YoloCrawler\YoloCrawler.csproj">
+      <Project>{81235DCE-E0F6-47F6-A8EF-0EF8DFA1E2D6}</Project>
+      <Name>YoloCrawler</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YoloCrawler\YoloCrawler.csproj">
