@@ -1,6 +1,7 @@
 ﻿namespace YoloCrawler.ConsolePresentation
 {
     using System;
+    using YoloCrawler.Entities;
 
     internal class ConsoleUi : Presentation
     {
