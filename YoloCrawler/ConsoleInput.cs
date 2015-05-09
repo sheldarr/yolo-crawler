@@ -2,7 +2,7 @@
 {
     using System;
 
-    class ConsoleInput
+    public class ConsoleInput
     {
         private readonly Engine _engine;
         private readonly KeyMapping _keyMapping;
@@ -55,8 +55,6 @@
                 if (pressedKey == _keyMapping.RightDown)
                 {
                 }
-
-                _engine.SayHello();
             }
         }
     }
