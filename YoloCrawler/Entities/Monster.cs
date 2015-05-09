@@ -23,5 +23,10 @@
                 Hitpoints = 1
             });
         }
+
+        public void Move(Offset offset)
+        {
+            Position += offset;
+        }
     }
 }

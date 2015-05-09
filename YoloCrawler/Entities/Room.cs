@@ -10,6 +10,7 @@ namespace YoloCrawler.Entities
         private readonly Tile[,] _tiles;
         private readonly Size _size;
         private readonly Position _startingPosition;
+        private readonly Random _random;
 
         public List<Monster> Monsters { get; set; }
 
@@ -18,6 +19,7 @@ namespace YoloCrawler.Entities
             _tiles = new Tile[size.Width, size.Height];
             _size = size;
             _startingPosition = startingPosition;
+            _random = new Random();
             Monsters = new List<Monster>();
         }
 
@@ -50,14 +52,14 @@ namespace YoloCrawler.Entities
 
         public void AddLink(Room newRoom)
         {
-            var horizontalOrVertical = (new Random()).Next(0, 1);
+            var horizontalOrVertical = _random.Next(0, 100);
 
-            if (horizontalOrVertical == 0) //vertical
+            if (horizontalOrVertical < 50) //vertical
             {
-                var leftOrRight = (new Random()).Next(0, 1);
-                var y = (new Random()).Next(1, _size.Height - 2);
+                var leftOrRight = _random.Next(0, 100);
+                var y = _random.Next(1, _size.Height - 2);
 
-                if (leftOrRight == 0)
+                if (leftOrRight < 0)
                 {
                     //left
                     Tiles[0, y].AddDoorTo(newRoom);
@@ -72,10 +74,10 @@ namespace YoloCrawler.Entities
             }
 
             // horizontal
-            var x = (new Random()).Next(1, _size.Width - 2);
+            var x = _random.Next(1, _size.Width - 2);
 
-            var upOrDown = (new Random()).Next(0, 1);
-            if (upOrDown == 0) //up
+            var upOrDown = _random.Next(0, 100);
+            if (upOrDown < 50) //up
             {
                 Tiles[x, 0].AddDoorTo(newRoom);
 
@@ -88,8 +90,8 @@ namespace YoloCrawler.Entities
 
         public Position GetRandomAvailablePosition()
         {
-            var x = new Random().Next(2, _size.Width - 1);
-            var y = new Random().Next(2, _size.Height - 1);
+            var x = _random.Next(2, _size.Width - 1);
+            var y = _random.Next(2, _size.Height - 1);
 
             return new Position(x, y);
         }
@@ -102,6 +104,19 @@ namespace YoloCrawler.Entities
         public void RemoveDeadMonsters(ConsolePresentation.Logger logger)
         {
             Monsters.RemoveAll(monster => monster.IsDead);
+        }
+        
+        public Tile GetDoorTo(Room room)
+        {
+            foreach (var tile in Tiles)
+            {
+                if (tile.Type == TileType.Door && tile.HasDoorTo(room))
+                {
+                    return tile;
+                }
+            }
+
+            throw new Exception("sth went wrong");
         }
     }
 }

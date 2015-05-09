@@ -9,11 +9,13 @@
     {
         private readonly Position _startingPosition;
         private readonly Size _size;
+        private readonly Random _random;
 
         public MapFactory(Size roomSize, Position startingPosition)
         {
             _size = roomSize;
             _startingPosition = startingPosition;
+            _random = new Random();
         }
 
         public Map GenerateRandomMap(int roomCount)
@@ -42,14 +44,9 @@
             };
         }
 
-        private Room GetNewRoom(Size size, Position startingPosition)
-        {
-            return RoomFactory.CreateEmptyRoom(size, startingPosition).WithRandomMonster();
-        }
-
         private List<Room> GenerateNeighbours(Room room, int minCount, int maxCount)
         {
-            var neighbourCount = (new Random()).Next(minCount, maxCount);
+            var neighbourCount = _random.Next(minCount, maxCount);
 
             var rooms = new List<Room>();
 
@@ -63,6 +60,11 @@
             }
 
             return rooms;
+        }
+
+        private Room GetNewRoom(Size size, Position startingPosition)
+        {
+            return RoomFactory.CreateEmptyRoom(size, startingPosition).WithRandomMonster();
         }
     }
 }

@@ -20,7 +20,7 @@
             {
                 for (var h = 1; h < room.Size.Height - 1; h++)
                 {
-                    room.Tiles[w, h] = new Tile(TileType.Floor);
+                    room.Tiles[w, h] = new Tile(TileType.Floor, new Position(w, h));
                 }
             }
         }
@@ -29,22 +29,22 @@
         {
             for (var w = 0; w < room.Size.Width; w++)
             {
-                room.Tiles[w, 0] = new Tile(TileType.Wall);
+                room.Tiles[w, 0] = new Tile(TileType.Wall, new Position(w, 0));
             }
 
             for (var w = 0; w < room.Size.Width; w++)
             {
-                room.Tiles[w, room.Size.Height - 1] = new Tile(TileType.Wall);
+                room.Tiles[w, room.Size.Height - 1] = new Tile(TileType.Wall, new Position(w, room.Size.Height - 1));
             }
 
             for (var h = 0; h < room.Size.Height; h++)
             {
-                room.Tiles[0, h] = new Tile(TileType.Wall);
+                room.Tiles[0, h] = new Tile(TileType.Wall, new Position(0, h));
             }
 
             for (var h = 0; h < room.Size.Height; h++)
             {
-                room.Tiles[room.Size.Width - 1, h] = new Tile(TileType.Wall);
+                room.Tiles[room.Size.Width - 1, h] = new Tile(TileType.Wall, new Position(room.Size.Width - 1, h));
             }
         }
     }

@@ -23,6 +23,7 @@
             _engineInitialized.WaitOne();
             var input = new ConsoleInput(_engine);
             input.MainLoop();
+            thread.Join();
         }
 
         private void RunEngine()
