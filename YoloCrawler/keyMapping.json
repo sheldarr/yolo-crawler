@@ -1,0 +1,11 @@
+{
+    'Quit': 'Q',
+    'LeftUp': 'NumPad7',
+    'Up': 'NumPad8',
+    'RightUp': 'NumPad9',
+    'Left': 'NumPad4',
+    'Right': 'NumPad6',
+    'LeftDown': 'NumPad1',
+    'Down': 'NumPad2',
+    'RightDown': 'NumPad3'
+}
