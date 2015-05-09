@@ -2,13 +2,13 @@ namespace YoloCrawler.Entities
 {
     public class Position
     {
-        private int _x;
-        private int _y;
+        public int Y { get; private set; }
+        public int X { get; private set; }
 
         public Position(int x, int y)
         {
-            _x = x;
-            _y = y;
+            X = x;
+            Y = y;
         }
 
         public override bool Equals(object obj)
@@ -20,13 +20,13 @@ namespace YoloCrawler.Entities
                 return false;
             }
 
-            return _x == position._x && _y == position._y;
+            return X == position.X && Y == position.Y;
         }
 
         public static Position operator + (Position position, Offset offset)
         {
-            position._x += offset.X;
-            position._y += offset.Y;
+            position.X += offset.X;
+            position.Y += offset.Y;
 
             return position;
         }

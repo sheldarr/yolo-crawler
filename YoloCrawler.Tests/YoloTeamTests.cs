@@ -11,7 +11,7 @@
         public void ShouldMoveInRoomWhenPossible()
         {
             // given
-            var room = RoomFactory.CreateEmptyRoom(4, 4);
+            var room = RoomFactory.CreateEmptyRoom(new Size(4,4));
 
             var position = new Position(1, 1);
 

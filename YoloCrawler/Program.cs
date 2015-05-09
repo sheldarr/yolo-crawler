@@ -2,6 +2,8 @@
 {
     using System.Threading;
     using ConsolePresentation;
+    using Entities;
+    using Factories;
 
     class Program
     {
@@ -26,7 +28,10 @@
 
         private void RunEgnine()
         {
-            var pres = new ConsoleUi();
+            var mapSize = new Size(60, 20);
+            var pres = new ConsoleUi(mapSize, new ConsolePresentationConfiguration());
+            var room = RoomFactory.CreateEmptyRoom(mapSize);
+            pres.Draw(new WorldRepresentation(room, new YoloTeam(room, new Position(1, 1))));
             _engine = new Engine(pres);
             _engineInitialized.Set();
             while (true)

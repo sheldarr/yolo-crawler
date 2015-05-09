@@ -7,10 +7,10 @@ namespace YoloCrawler.Entities
         private readonly Tile[,] _tiles;
         private readonly Size _size;
 
-        public Room(int width, int height)
+        public Room(Size size)
         {
-            _tiles = new Tile[width,height];
-            _size = new Size(width, height);
+            _tiles = new Tile[size.Width, size.Height];
+            _size = size;
         }
 
         public Tile[,] Tiles

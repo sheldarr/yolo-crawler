@@ -1,12 +1,12 @@
 ﻿namespace YoloCrawler.Factories
 {
-    using YoloCrawler.Entities;
+    using Entities;
 
     public static class RoomFactory
     {
-        public static Room CreateEmptyRoom(int width, int height)
+        public static Room CreateEmptyRoom(Size size)
         {
-            var room = new Room(width, height);
+            var room = new Room(size);
 
             CreateFloor(room);
             CreateWalls(room);
@@ -20,7 +20,7 @@
             {
                 for (int h = 1; h < room.Size.Height - 1; h++)
                 {
-                    room.Tiles[w, h] = new Tile(TileTypes.Floor);
+                    room.Tiles[w, h] = new Tile(TileType.Floor);
                 }
             }
         }
@@ -29,22 +29,22 @@
         {
             for (var w = 0; w < room.Size.Width; w++)
             {
-                room.Tiles[w, 0] = new Tile(TileTypes.Wall);
+                room.Tiles[w, 0] = new Tile(TileType.Wall);
             }
 
             for (var w = 0; w < room.Size.Width; w++)
             {
-                room.Tiles[w, room.Size.Height - 1] = new Tile(TileTypes.Wall);
+                room.Tiles[w, room.Size.Height - 1] = new Tile(TileType.Wall);
             }
 
             for (var h = 0; h < room.Size.Height; h++)
             {
-                room.Tiles[0, h] = new Tile(TileTypes.Wall);
+                room.Tiles[0, h] = new Tile(TileType.Wall);
             }
 
             for (var h = 0; h < room.Size.Height; h++)
             {
-                room.Tiles[room.Size.Width - 1, h] = new Tile(TileTypes.Wall);
+                room.Tiles[room.Size.Width - 1, h] = new Tile(TileType.Wall);
             }
         }
     }
