@@ -2,23 +2,31 @@
 {
     using Fighting;
 
-    public class Monster
+    public class Monster : Being, ICanAttack, ICanBeAttacked
     {
-        public string Name { get; set; }
-        public int HitPoints { get; set; }
-
-        public bool IsDead
-        {
-            get { return HitPoints <= 0; }
-        }
-
-        public Position Position;
-
         public Monster(string name, Position position)
         {
             Name = name;
             Position = position;
-            HitPoints = RandomGenerator.Random.Next(3, 8);
+            Hitpoints = RandomGenerator.Random.Next(3, 8);
+        }
+
+        public void Take(Damage dmg)
+        {
+            Hitpoints -= dmg.Hitpoints;
+        }
+
+        public void Attack(ICanBeAttacked target)
+        {
+            target.Take(new Damage
+            {
+                Hitpoints = 1
+            });
+        }
+
+        public void Move(Offset offset)
+        {
+            Position += offset;
         }
     }
 }

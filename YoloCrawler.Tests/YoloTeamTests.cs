@@ -1,7 +1,5 @@
 ﻿namespace YoloCrawler.Tests
 {
-    using FakeItEasy;
-    using Fighting;
     using NUnit.Framework;
     using Entities;
     using Factories;
@@ -15,9 +13,7 @@
             // given
             var room = RoomFactory.CreateEmptyRoom(new Size(4, 4), new Position(1, 1));
 
-            var fightingStrategy = A.Dummy<TeamFightingStrategy>();
-
-            var team = new YoloTeam(room, fightingStrategy);
+            var team = new YoloTeam(room.StartingPosition);
 
             // when
             team.Move(MovementOffsets.RightDown);
@@ -33,28 +29,8 @@
             var startingPosition = new Position(1, 1);
             var room = RoomFactory.CreateEmptyRoom(new Size(4,4), startingPosition);
 
-            var dummyFightingStrategy = A.Dummy<TeamFightingStrategy>();
-
             // when
-            var team = new YoloTeam(room, dummyFightingStrategy);
-
-            // then
-            Assert.That(team.Position, Is.EqualTo(startingPosition));
-        }
-
-        [Test]
-        public void ShouldNotAllowWalkingIntoTheWall()
-        {
-            // given
-            var startingPosition = new Position(1, 1);
-            var room = RoomFactory.CreateEmptyRoom(new Size(4,4), startingPosition);
-
-            var dummyFightingStrategy = A.Dummy<TeamFightingStrategy>();
-
-            var team = new YoloTeam(room, dummyFightingStrategy);
-
-            // when
-            team.Move(MovementOffsets.LeftUp);
+            var team = new YoloTeam(room.StartingPosition);
 
             // then
             Assert.That(team.Position, Is.EqualTo(startingPosition));

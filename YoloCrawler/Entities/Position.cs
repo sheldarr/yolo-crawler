@@ -30,5 +30,13 @@ namespace YoloCrawler.Entities
 
             return new Position(positionX, positionY);
         }
+
+        public Offset GetOffsetTowards(Position target)
+        {
+            var offsetX = target.X - X == 0 ? 0 : (target.X - X < 0 ? -1 : 1);
+            var offsetY = target.Y - Y == 0 ? 0 : (target.Y - Y < 0 ? -1 : 1);
+
+            return new Offset(offsetX, offsetY);
+        }
     }
 }

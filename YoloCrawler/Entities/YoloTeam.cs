@@ -1,49 +1,37 @@
 namespace YoloCrawler.Entities
 {
-    using System.Linq;
     using Fighting;
 
-    public class YoloTeam
+    public class YoloTeam : Being, ICanAttack, ICanBeAttacked
     {
-        private readonly Room _room;
-        private Position _position;
-        private readonly TeamFightingStrategy _teamFightingStrategy;
-
-        public YoloTeam(Room room, TeamFightingStrategy teamFightingStrategy)
+        public YoloTeam(Position startingPosition)
         {
-            _room = room;
-            _position = _room.StartingPosition;
-            _teamFightingStrategy = teamFightingStrategy;
-        }
-
-        public Position Position
-        {
-            get { return _position; }
+            Position = startingPosition;
+            Hitpoints = 10;
+            Name = "#YoloTeam";
         }
 
         public void Move(Offset offset)
         {
-            var nextPosition = _position + offset;
-
-            if (_room.Tiles[nextPosition.X, nextPosition.Y].Type == TileType.Wall)
-            {
-                return;
-            }
-
-            if (MonsterOccupiesPosition(nextPosition))
-            {
-                var monsterToAttack = _room.Monsters.FirstOrDefault(monster => Equals(monster.Position, nextPosition));
-                _teamFightingStrategy.Attack(monsterToAttack);
-             
-                return;
-            }
-
-            _position += offset;
+            Position += offset;
         }
 
-        public bool MonsterOccupiesPosition(Position position)
+        public void EnterRoom(Position newRoomStartingPosition)
         {
-            return _room.Monsters.Any(monster => Equals(monster.Position, position));
+            Position = newRoomStartingPosition;
+        }
+
+        public void Attack(ICanBeAttacked target)
+        {
+            target.Take(new Damage
+            {
+                Hitpoints = 1
+            });
+        }
+
+        public void Take(Damage dmg)
+        {
+            Hitpoints -= dmg.Hitpoints;
         }
     }
 }
