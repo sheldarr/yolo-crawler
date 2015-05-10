@@ -1,14 +1,15 @@
 ﻿namespace YoloCrawler.Factories
 {
     using Entities;
-    using Fighting;
 
     public static class MonsterFactory
     {
+        private static readonly Dice Dice = new Dice();
+
         public static Monster CreateRandomMonster(Room room, Position position)
         {
             var monsters = MonsterNamesLoader.Load();
-            var randomMonsterNameIndex = RandomGenerator.Random.Next(1, monsters.Count);
+            var randomMonsterNameIndex = Dice.RollForMonsterNameIndex(monsters.Count);
 
             var monsterName = monsters[randomMonsterNameIndex];
             

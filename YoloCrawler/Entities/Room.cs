@@ -3,14 +3,13 @@ namespace YoloCrawler.Entities
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Microsoft.Build.Utilities;
 
     public class Room
     {
         private readonly Tile[,] _tiles;
         private readonly Size _size;
         private readonly Position _startingPosition;
-        private readonly Random _random;
+        private readonly Dice _dice;
 
         public List<Monster> Monsters { get; set; }
 
@@ -19,7 +18,7 @@ namespace YoloCrawler.Entities
             _tiles = new Tile[size.Width, size.Height];
             _size = size;
             _startingPosition = startingPosition;
-            _random = new Random();
+            _dice = new Dice();
             Monsters = new List<Monster>();
         }
 
@@ -52,12 +51,12 @@ namespace YoloCrawler.Entities
 
         public void AddLink(Room newRoom)
         {
-            var horizontalOrVertical = _random.Next(0, 100);
+            var horizontalOrVertical = _dice.RollK100();
 
             if (horizontalOrVertical < 50) //vertical
             {
-                var leftOrRight = _random.Next(0, 100);
-                var y = _random.Next(1, _size.Height - 2);
+                var leftOrRight = _dice.RollK100();
+                var y = _dice.RollForPlaceOnTheWall(_size.Height);
 
                 if (leftOrRight < 0)
                 {
@@ -74,9 +73,9 @@ namespace YoloCrawler.Entities
             }
 
             // horizontal
-            var x = _random.Next(1, _size.Width - 2);
+            var x = _dice.RollForPlaceOnTheWall(_size.Width);
 
-            var upOrDown = _random.Next(0, 100);
+            var upOrDown = _dice.RollK100();
             if (upOrDown < 50) //up
             {
                 Tiles[x, 0].AddDoorTo(newRoom);
@@ -90,8 +89,8 @@ namespace YoloCrawler.Entities
 
         public Position GetRandomAvailablePosition()
         {
-            var x = _random.Next(2, _size.Width - 1);
-            var y = _random.Next(2, _size.Height - 1);
+            var x = _dice.RollForFreeAvailableCoordinateValueBasedOn(_size.Width);
+            var y = _dice.RollForFreeAvailableCoordinateValueBasedOn(_size.Height);
 
             return new Position(x, y);
         }

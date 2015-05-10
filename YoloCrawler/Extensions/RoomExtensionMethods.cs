@@ -1,6 +1,5 @@
 ﻿namespace YoloCrawler.Extensions
 {
-    using System;
     using Entities;
     using Factories;
 

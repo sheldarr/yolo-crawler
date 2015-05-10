@@ -24,8 +24,8 @@
 
         private void InitializeGame()
         {
-            Map = MapFactory.GenerateRandomMap(4);
-            _room = Map.GetRandomRoom();
+            Map = MapFactory.GenerateRandomMap();
+            _room = Map.GetRandomStartingRoom();
             _yoloTeam = new YoloTeam(_room.StartingPosition);
             _worldRepresentation = new WorldRepresentation(_room, _yoloTeam);
             _presentation.Draw(_worldRepresentation);

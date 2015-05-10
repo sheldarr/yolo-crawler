@@ -52,6 +52,7 @@
     <Compile Include="ConsolePresentation\ConsoleUi.cs" />
     <Compile Include="ConsolePresentation\ConsolePresentationConfiguration.cs" />
     <Compile Include="ConsolePresentation\Logger.cs" />
+    <Compile Include="Dice.cs" />
     <Compile Include="Entities\Dimensions.cs" />
     <Compile Include="Entities\IAm.cs" />
     <Compile Include="Fighting\ICanAttack.cs" />
@@ -67,7 +68,6 @@
     <Compile Include="Fighting\Damage.cs" />
     <Compile Include="Entities\Being.cs" />
     <Compile Include="Fighting\ICanBeAttacked.cs" />
-    <Compile Include="Fighting\RandomGenerator.cs" />
     <Compile Include="Input\ConsoleInput.cs" />
     <Compile Include="Input\KeyMapping.cs" />
     <Compile Include="Input\KeyMappingLoader.cs" />

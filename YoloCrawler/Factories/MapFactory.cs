@@ -7,10 +7,13 @@
 
     public class MapFactory
     {
-        private static readonly Random Random = new Random();
+        private static readonly Dice Dice = new Dice();
+        const int MinNeighboursCount = 1;
+        const int MaxNeighboursCount = 3;
 
-        public static Map GenerateRandomMap(int roomCount)
+        public static Map GenerateRandomMap()
         {
+            var roomCount = Dice.RollK100();
             var origin = GetNewRandomRoom();
 
             var rooms = new List<Room>();
@@ -22,7 +25,7 @@
             while (roomCount != 0)
             {
                 var room = neighbourQueue.Dequeue();
-                var newRooms = GenerateNeighbours(room, 1, 3);
+                var newRooms = GenerateNeighbours(room, MinNeighboursCount, MaxNeighboursCount);
 
                 roomCount -= newRooms.Count;
                 newRooms.ForEach(neighbourQueue.Enqueue);
@@ -37,7 +40,7 @@
 
         private static List<Room> GenerateNeighbours(Room room, int minCount, int maxCount)
         {
-            var neighbourCount = Random.Next(minCount, maxCount);
+            var neighbourCount = Dice.RollForNeighboursCount(minCount, maxCount);
 
             var rooms = new List<Room>();
 
@@ -55,17 +58,18 @@
 
         private static Room GetNewRandomRoom()
         {
-            var randomWidth = 9;
-            while (randomWidth % 2 != 0)
+            int randomWidth;
+            do
             {
-                randomWidth = Random.Next(4, 58);
-            }
+                randomWidth = Dice.RollForRandomRoomWidth();
+            } while (randomWidth % 2 != 0);
 
-            var randomHeight = 9;
-            while (randomHeight % 2 != 0)
+            int randomHeight;
+
+            do
             {
-                randomHeight = Random.Next(4, 18);
-            }
+                randomHeight = Dice.RollForRandomRoomHeight();
+            } while (randomHeight % 2 != 0);
 
             var roomSize = new Size(randomWidth, randomHeight);
             var startingPosition = new Position(1, 1);
