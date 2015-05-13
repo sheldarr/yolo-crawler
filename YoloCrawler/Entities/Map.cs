@@ -1,17 +1,16 @@
 namespace YoloCrawler.Entities
 {
-    using System;
     using System.Collections.Generic;
 
     public class Map
     {
-        private readonly Random _random;
+        private readonly Dice _dice;
         public List<Room> Rooms { get; set; }
 
         public Map()
         {
+            _dice = new Dice();
             Rooms = new List<Room>();
-            _random = new Random();
         }
 
         public void AddRoom(Room room)
@@ -19,9 +18,9 @@ namespace YoloCrawler.Entities
             Rooms.Add(room);
         }
 
-        public Room GetRandomRoom()
+        public Room GetRandomStartingRoom()
         {
-            var randomIndex = _random.Next(0, Rooms.Count - 1);
+            var randomIndex = _dice.RollForRandomRoomIndex(Rooms.Count);
 
             return Rooms[randomIndex];
         }

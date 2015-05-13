@@ -4,11 +4,14 @@
 
     public class Monster : Being, ICanAttack, ICanBeAttacked
     {
+        const int MinHitpoints = 2;
+        const int MaxHitpoints = 8;
+
         public Monster(string name, Position position)
         {
             Name = name;
-            Position = position;
-            Hitpoints = RandomGenerator.Random.Next(3, 8);
+            Position = position;            
+            Hitpoints = new Dice().RollForHitpoints(MinHitpoints, MaxHitpoints);
         }
 
         public void Take(Damage dmg)
