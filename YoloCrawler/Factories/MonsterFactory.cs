@@ -4,12 +4,12 @@
 
     public static class MonsterFactory
     {
-        private static readonly Dice Dice = new Dice();
+        private static readonly YoloDice YoloDice = new YoloDice();
 
         public static Monster CreateRandomMonster(Room room, Position position)
         {
             var monsters = MonsterNamesLoader.Load();
-            var randomMonsterNameIndex = Dice.RollForMonsterNameIndex(monsters.Count);
+            var randomMonsterNameIndex = YoloDice.RollForMonsterNameIndex(monsters.Count);
 
             var monsterName = monsters[randomMonsterNameIndex];
             

@@ -7,13 +7,13 @@
 
     public class MapFactory
     {
-        private static readonly Dice Dice = new Dice();
+        private static readonly YoloDice YoloDice = new YoloDice();
         const int MinNeighboursCount = 1;
         const int MaxNeighboursCount = 3;
 
         public static Map GenerateRandomMap()
         {
-            var roomCount = Dice.RollK100();
+            var roomCount = YoloDice.RollK100();
             var origin = GetNewRandomRoom();
 
             var rooms = new List<Room>();
@@ -40,7 +40,7 @@
 
         private static List<Room> GenerateNeighbours(Room room, int minCount, int maxCount)
         {
-            var neighbourCount = Dice.RollForNeighboursCount(minCount, maxCount);
+            var neighbourCount = YoloDice.RollForNeighboursCount(minCount, maxCount);
 
             var rooms = new List<Room>();
 
@@ -61,14 +61,14 @@
             int randomWidth;
             do
             {
-                randomWidth = Dice.RollForRandomRoomWidth();
+                randomWidth = YoloDice.RollForRandomRoomWidth();
             } while (randomWidth % 2 != 0);
 
             int randomHeight;
 
             do
             {
-                randomHeight = Dice.RollForRandomRoomHeight();
+                randomHeight = YoloDice.RollForRandomRoomHeight();
             } while (randomHeight % 2 != 0);
 
             var roomSize = new Size(randomWidth, randomHeight);

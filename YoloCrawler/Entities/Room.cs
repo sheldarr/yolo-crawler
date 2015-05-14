@@ -3,6 +3,7 @@ namespace YoloCrawler.Entities
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Factories;
 
     public class Room
     {
@@ -13,15 +14,6 @@ namespace YoloCrawler.Entities
 
         public List<Monster> Monsters { get; set; }
 
-        public Room(Size size, Position startingPosition)
-        {
-            _tiles = new Tile[size.Width, size.Height];
-            _size = size;
-            _startingPosition = startingPosition;
-            _dice = new Dice();
-            Monsters = new List<Monster>();
-        }
-
         public Tile[,] Tiles
         {
             get { return _tiles; }
@@ -30,6 +22,20 @@ namespace YoloCrawler.Entities
         public Size Size
         {
             get { return _size; }
+        }
+
+        public Room(Size size, Position startingPosition) : this(size, startingPosition, new YoloDice())
+        {
+            
+        }
+
+        public Room(Size size, Position startingPosition, Dice dice)
+        {
+            _tiles = new Tile[size.Width, size.Height];
+            _size = size;
+            _startingPosition = startingPosition;
+            _dice = dice;
+            Monsters = new List<Monster>();
         }
 
         public Position StartingPosition
@@ -120,6 +126,25 @@ namespace YoloCrawler.Entities
             var door = doors.Single(t => t.HasDoorTo(room));
 
             return door;
+        }
+
+        public void SpawnMonsters(int monsterCount)
+        {
+            Enumerable.Range(0, monsterCount).ToList().ForEach(_ =>
+            {
+                Position randomPosition;
+                do
+                {
+                    randomPosition = _dice.RollPosition(Size.Width, Size.Height);
+                } while (!FreeTile(randomPosition));
+                
+                Monsters.Add(MonsterFactory.CreateRandomMonster(this, randomPosition));
+            });
+        }
+
+        private bool FreeTile(Position randomPosition)
+        {
+            return !Monsters.Any(monster => monster.Position.Equals(randomPosition));
         }
     }
 }

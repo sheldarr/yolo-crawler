@@ -53,6 +53,7 @@
     <Compile Include="ConsolePresentation\ConsolePresentationConfiguration.cs" />
     <Compile Include="ConsolePresentation\Logger.cs" />
     <Compile Include="Dice.cs" />
+    <Compile Include="YoloDice.cs" />
     <Compile Include="Entities\Dimensions.cs" />
     <Compile Include="Entities\IAm.cs" />
     <Compile Include="Fighting\ICanAttack.cs" />

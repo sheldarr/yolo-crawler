@@ -11,7 +11,7 @@
         {
             Name = name;
             Position = position;            
-            Hitpoints = new Dice().RollForHitpoints(MinHitpoints, MaxHitpoints);
+            Hitpoints = new YoloDice().RollForHitpoints(MinHitpoints, MaxHitpoints);
         }
 
         public void Take(Damage dmg)
