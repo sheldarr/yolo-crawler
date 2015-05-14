@@ -6,7 +6,7 @@
     {
         private static readonly YoloDice YoloDice = new YoloDice();
 
-        public static Monster CreateRandomMonster(Room room, Position position)
+        public static Monster CreateRandomMonster(Position position)
         {
             var monsters = MonsterNamesLoader.Load();
             var randomMonsterNameIndex = YoloDice.RollForMonsterNameIndex(monsters.Count);

@@ -125,7 +125,7 @@ namespace YoloCrawler.Entities
                     randomPosition = _dice.RollPosition(Size.Width, Size.Height);
                 } while (!PositionFreeForMonster(randomPosition));
                 
-                Monsters.Add(MonsterFactory.CreateRandomMonster(this, randomPosition));
+                Monsters.Add(MonsterFactory.CreateRandomMonster(randomPosition));
             });
         }
 
