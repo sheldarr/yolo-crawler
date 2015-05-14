@@ -107,5 +107,22 @@
             Assert.That(_room.Monsters.Count, Is.EqualTo(monsterCount));
             Assert.That(_room.Monsters.First().Position, Is.EqualTo(validMonsterPosition));
         }
+
+        [Test]
+        public void ShouldNotSpawnMonstersOnWalls()
+        {
+            //given
+            const int monsterCount = 1;
+            var validMonsterPosition = new Position(5, 5);
+
+            A.CallTo(() => _dice.RollPosition(Width, Height)).ReturnsNextFromSequence(new [] {new Position(0,0), new Position(0,_room.Size.Height-1), new Position(_room.Size.Width-1, 0), new Position(_room.Size.Width-1, _room.Size.Height-1), validMonsterPosition});
+
+            //when
+            _room.SpawnMonsters(monsterCount);
+
+            //then
+            Assert.That(_room.Monsters.Count, Is.EqualTo(monsterCount));
+            Assert.That(_room.Monsters.First().Position, Is.EqualTo(validMonsterPosition));
+        }
     }
 }

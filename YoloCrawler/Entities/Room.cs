@@ -129,16 +129,16 @@ namespace YoloCrawler.Entities
             });
         }
 
-        private bool PositionFreeForMonster(Position randomPosition)
+        private bool PositionFreeForMonster(Position position)
         {
-            var monstersOnPosition = Monsters.Any(monster => monster.Position.Equals(randomPosition));
+            var monstersOnPosition = Monsters.Any(monster => monster.Position.Equals(position));
             var nearDoor = false;
 
             foreach (var tile in Tiles)
             {
                 if (tile.HasDoor)
                 {
-                    if (tile.CloseTo(randomPosition))
+                    if (tile.CloseTo(position))
                     {
                         nearDoor = true;
                         break;
@@ -146,7 +146,14 @@ namespace YoloCrawler.Entities
                 }
             }
 
-            return !monstersOnPosition && !nearDoor;
+            var notOnWall = NotOnWall(position);
+
+            return !monstersOnPosition && !nearDoor && notOnWall;
+        }
+
+        private bool NotOnWall(Position position)
+        {
+            return position.X != 0 && position.X != Size.Width - 1 && position.Y != 0 && position.Y != Size.Height - 1;
         }
     }
 }
