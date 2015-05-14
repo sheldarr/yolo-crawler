@@ -34,19 +34,6 @@
         }
 
         [Test]
-        public void ShouldRollForFreeAvailableCoordinateInsideOfRoomLeavingOneFreeSpaceFromTheWallWhenPassingWallSize()
-        {
-            // given
-            const int wallSize = 10;
-
-            // when
-            var coordinateValue = _yoloDice.RollForFreeAvailableCoordinateValueBasedOn(wallSize);
-
-            // then
-            Assert.That(coordinateValue, Is.InRange(2, wallSize - 2));
-        }
-
-        [Test]
         public void ShouldRolForNeigbourningRoomCountWhenPassinMinAndMaxCount()
         {
             // given

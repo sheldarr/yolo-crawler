@@ -1,9 +1,7 @@
 ﻿namespace YoloCrawler.Factories
 {
-    using System;
     using System.Collections.Generic;
-    using YoloCrawler.Entities;
-    using YoloCrawler.Extensions;
+    using Entities;
 
     public class MapFactory
     {
@@ -31,6 +29,8 @@
                 newRooms.ForEach(neighbourQueue.Enqueue);
                 rooms.AddRange(newRooms);
             }
+
+            rooms.ForEach(room => room.SpawnMonsters(1));
 
             return new Map
             {
@@ -73,7 +73,7 @@
 
             var roomSize = new Size(randomWidth, randomHeight);
             var startingPosition = new Position(1, 1);
-            return RoomFactory.CreateEmptyRoom(roomSize, startingPosition).WithRandomMonster();
+            return RoomFactory.CreateEmptyRoom(roomSize, startingPosition);
         }
     }
 }

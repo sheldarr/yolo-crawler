@@ -1,6 +1,5 @@
 ﻿namespace YoloCrawler.Tests
 {
-    using System;
     using System.Linq;
     using Entities;
     using Factories;

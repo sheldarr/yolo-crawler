@@ -61,7 +61,6 @@
     <Compile Include="Entities\Monster.cs" />
     <Compile Include="Entities\RoomCorridor.cs" />
     <Compile Include="Entities\WorldRepresentation.cs" />
-    <Compile Include="Extensions\RoomExtensionMethods.cs" />
     <Compile Include="Entities\Point.cs" />
     <Compile Include="Factories\MapFactory.cs" />
     <Compile Include="Factories\MonsterNamesLoader.cs" />

@@ -29,12 +29,6 @@
             return new Position(_random.Next(0, width), _random.Next(0, height));
         }
 
-        public int RollForFreeAvailableCoordinateValueBasedOn(int roomWallSize)
-        {
-            const int minDistanceToWall = 2;
-            return _random.Next(minDistanceToWall, roomWallSize - minDistanceToWall);
-        }
-
         public int RollForNeighboursCount(int minCount, int maxCount)
         {
             return _random.Next(minCount, maxCount + FixingStupidUpperBound);

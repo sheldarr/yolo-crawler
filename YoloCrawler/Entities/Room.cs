@@ -88,14 +88,6 @@ namespace YoloCrawler.Entities
             Tiles[x, _size.Height - 1].AddDoorTo(newRoom);
         }
 
-        public Position GetRandomAvailablePosition()
-        {
-            var x = _dice.RollForFreeAvailableCoordinateValueBasedOn(_size.Width);
-            var y = _dice.RollForFreeAvailableCoordinateValueBasedOn(_size.Height);
-
-            return new Position(x, y);
-        }
-
         public bool MonsterOccupiesPosition(Position position)
         {
             return Monsters.Any(monster => Equals(monster.Position, position));
