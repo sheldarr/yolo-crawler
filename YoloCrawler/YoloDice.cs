@@ -24,9 +24,9 @@
             return _random.Next(minDistanceToAvoidTheCorner, roomWallSize - minDistanceToAvoidTheCorner);
         }
 
-        public Position RollPosition(int lowerBoundary, int exclusiveUpperBoundary)
+        public Position RollPosition(int width, int height)
         {
-            throw new NotImplementedException();
+            return new Position(_random.Next(0, width), _random.Next(0, height));
         }
 
         public int RollForFreeAvailableCoordinateValueBasedOn(int roomWallSize)

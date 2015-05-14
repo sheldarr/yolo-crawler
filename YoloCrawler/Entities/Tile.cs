@@ -1,10 +1,17 @@
 namespace YoloCrawler.Entities
 {
+    using System;
+
     public class Tile
     {
         private readonly Position _position;
         private Room _room;
         public TileType Type { get; private set; }
+
+        public bool HasDoor
+        {
+            get { return _room != null; }
+        }
 
         public Tile(TileType tileType, Position position)
         {
@@ -44,6 +51,14 @@ namespace YoloCrawler.Entities
         public bool HasDoorTo(Room room)
         {
             return _room.Equals(room);
+        }
+
+        public bool CloseTo(Position randomPosition)
+        {
+            var xDistance = Math.Abs(_position.X - randomPosition.X);
+            var yDistance = Math.Abs(_position.Y - randomPosition.Y);
+
+            return xDistance <= 2 && yDistance <= 2;
         }
     }
 }

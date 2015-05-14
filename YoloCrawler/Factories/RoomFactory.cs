@@ -6,7 +6,12 @@
     {
         public static Room CreateEmptyRoom(Size size, Position startingPosition)
         {
-            var room = new Room(size, startingPosition);
+            return CreateEmptyRoom(size, startingPosition, new YoloDice());
+        }
+
+        public static Room CreateEmptyRoom(Size size, Position startingPosition, Dice dice)
+        {
+            var room = new Room(size, startingPosition, dice);
 
             CreateFloor(room);
             CreateWalls(room);

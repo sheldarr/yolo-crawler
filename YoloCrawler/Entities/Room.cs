@@ -24,11 +24,6 @@ namespace YoloCrawler.Entities
             get { return _size; }
         }
 
-        public Room(Size size, Position startingPosition) : this(size, startingPosition, new YoloDice())
-        {
-            
-        }
-
         public Room(Size size, Position startingPosition, Dice dice)
         {
             _tiles = new Tile[size.Width, size.Height];
@@ -136,15 +131,30 @@ namespace YoloCrawler.Entities
                 do
                 {
                     randomPosition = _dice.RollPosition(Size.Width, Size.Height);
-                } while (!FreeTile(randomPosition));
+                } while (!PositionFreeForMonster(randomPosition));
                 
                 Monsters.Add(MonsterFactory.CreateRandomMonster(this, randomPosition));
             });
         }
 
-        private bool FreeTile(Position randomPosition)
+        private bool PositionFreeForMonster(Position randomPosition)
         {
-            return !Monsters.Any(monster => monster.Position.Equals(randomPosition));
+            var monstersOnPosition = Monsters.Any(monster => monster.Position.Equals(randomPosition));
+            var nearDoor = false;
+
+            foreach (var tile in Tiles)
+            {
+                if (tile.HasDoor)
+                {
+                    if (tile.CloseTo(randomPosition))
+                    {
+                        nearDoor = true;
+                        break;
+                    }
+                }
+            }
+
+            return !monstersOnPosition && !nearDoor;
         }
     }
 }
