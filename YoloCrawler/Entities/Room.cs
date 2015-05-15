@@ -123,26 +123,23 @@ namespace YoloCrawler.Entities
                 do
                 {
                     randomPosition = _dice.RollPosition(Size.Width, Size.Height);
-                } while (!PositionFreeForMonster(randomPosition));
+                } while (!MonsterCanSpawnOn(randomPosition));
                 
                 Monsters.Add(MonsterFactory.CreateRandomMonster(randomPosition));
             });
         }
 
-        private bool PositionFreeForMonster(Position position)
+        private bool MonsterCanSpawnOn(Position position)
         {
             var monstersOnPosition = Monsters.Any(monster => monster.Position.Equals(position));
             var nearDoor = false;
 
             foreach (var tile in Tiles)
             {
-                if (tile.HasDoor)
+                if (tile.HasDoor && tile.CloseTo(position))
                 {
-                    if (tile.CloseTo(position))
-                    {
-                        nearDoor = true;
-                        break;
-                    }
+                    nearDoor = true;
+                    break;
                 }
             }
 
