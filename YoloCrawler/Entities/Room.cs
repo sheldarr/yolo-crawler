@@ -3,6 +3,7 @@ namespace YoloCrawler.Entities
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Factories;
 
     public class Room
     {
@@ -13,15 +14,6 @@ namespace YoloCrawler.Entities
 
         public List<Monster> Monsters { get; set; }
 
-        public Room(Size size, Position startingPosition)
-        {
-            _tiles = new Tile[size.Width, size.Height];
-            _size = size;
-            _startingPosition = startingPosition;
-            _dice = new Dice();
-            Monsters = new List<Monster>();
-        }
-
         public Tile[,] Tiles
         {
             get { return _tiles; }
@@ -30,6 +22,15 @@ namespace YoloCrawler.Entities
         public Size Size
         {
             get { return _size; }
+        }
+
+        public Room(Size size, Position startingPosition, Dice dice)
+        {
+            _tiles = new Tile[size.Width, size.Height];
+            _size = size;
+            _startingPosition = startingPosition;
+            _dice = dice;
+            Monsters = new List<Monster>();
         }
 
         public Position StartingPosition
@@ -87,14 +88,6 @@ namespace YoloCrawler.Entities
             Tiles[x, _size.Height - 1].AddDoorTo(newRoom);
         }
 
-        public Position GetRandomAvailablePosition()
-        {
-            var x = _dice.RollForFreeAvailableCoordinateValueBasedOn(_size.Width);
-            var y = _dice.RollForFreeAvailableCoordinateValueBasedOn(_size.Height);
-
-            return new Position(x, y);
-        }
-
         public bool MonsterOccupiesPosition(Position position)
         {
             return Monsters.Any(monster => Equals(monster.Position, position));
@@ -120,6 +113,44 @@ namespace YoloCrawler.Entities
             var door = doors.Single(t => t.HasDoorTo(room));
 
             return door;
+        }
+
+        public void SpawnMonsters(int monsterCount)
+        {
+            Enumerable.Range(0, monsterCount).ToList().ForEach(_ =>
+            {
+                Position randomPosition;
+                do
+                {
+                    randomPosition = _dice.RollPosition(Size.Width, Size.Height);
+                } while (!MonsterCanSpawnOn(randomPosition));
+                
+                Monsters.Add(MonsterFactory.CreateRandomMonster(randomPosition));
+            });
+        }
+
+        private bool MonsterCanSpawnOn(Position position)
+        {
+            var monstersOnPosition = Monsters.Any(monster => monster.Position.Equals(position));
+            var nearDoor = false;
+
+            foreach (var tile in Tiles)
+            {
+                if (tile.HasDoor && tile.CloseTo(position))
+                {
+                    nearDoor = true;
+                    break;
+                }
+            }
+
+            var notOnWall = NotOnWall(position);
+
+            return !monstersOnPosition && !nearDoor && notOnWall;
+        }
+
+        private bool NotOnWall(Position position)
+        {
+            return position.X != 0 && position.X != Size.Width - 1 && position.Y != 0 && position.Y != Size.Height - 1;
         }
     }
 }

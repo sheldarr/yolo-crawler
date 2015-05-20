@@ -8,13 +8,13 @@
     [TestFixture]
     public class DiceTests
     {
-        private readonly Dice _dice = new Dice();
+        private readonly YoloDice _yoloDice = new YoloDice();
 
         [Test]
         public void ShouldRollNumberFrom1To100WhenRolingK100()
         {
             // when
-            var result = _dice.RollK100();
+            var result = _yoloDice.RollK100();
 
             // then
             Assert.That(result, Is.InRange(1, 100));
@@ -27,23 +27,10 @@
             const int wallSize = 10;
 
             // when
-            var placeOnTheWall = _dice.RollForPlaceOnTheWall(wallSize);
+            var placeOnTheWall = _yoloDice.RollForPlaceOnTheWall(wallSize);
 
             // then
             Assert.That(placeOnTheWall, Is.InRange(1, 9));
-        }
-
-        [Test]
-        public void ShouldRollForFreeAvailableCoordinateInsideOfRoomLeavingOneFreeSpaceFromTheWallWhenPassingWallSize()
-        {
-            // given
-            const int wallSize = 10;
-
-            // when
-            var coordinateValue = _dice.RollForFreeAvailableCoordinateValueBasedOn(wallSize);
-
-            // then
-            Assert.That(coordinateValue, Is.InRange(2, wallSize - 2));
         }
 
         [Test]
@@ -54,7 +41,7 @@
             const int maxCount = 5;
 
             // when
-            var neighboursCount = _dice.RollForNeighboursCount(minCount, maxCount);
+            var neighboursCount = _yoloDice.RollForNeighboursCount(minCount, maxCount);
 
             // then
             Assert.That(neighboursCount, Is.InRange(4, 5));
@@ -69,8 +56,8 @@
             const int maxDisplayHeight = 18;
 
             // when
-            var randomRoomWidth = _dice.RollForRandomRoomWidth();
-            var randomRoomHeight = _dice.RollForRandomRoomHeight();
+            var randomRoomWidth = _yoloDice.RollForRandomRoomWidth();
+            var randomRoomHeight = _yoloDice.RollForRandomRoomHeight();
 
             // then
             Assert.That(randomRoomWidth, Is.InRange(4, maxDisplayWidth));
@@ -84,7 +71,7 @@
             const int roomCount = 4;
 
             // when
-            var randomRoomIndex = _dice.RollForRandomRoomIndex(roomCount);
+            var randomRoomIndex = _yoloDice.RollForRandomRoomIndex(roomCount);
 
             // then
             Assert.That(randomRoomIndex, Is.InRange(0, 3));
@@ -98,7 +85,7 @@
             const int maxHitpoints = 2;
 
             // when
-            var hitpoints = _dice.RollForHitpoints(minHitpoints, maxHitpoints);
+            var hitpoints = _yoloDice.RollForHitpoints(minHitpoints, maxHitpoints);
 
             // then
             Assert.That(hitpoints, Is.InRange(minHitpoints, maxHitpoints));
@@ -115,7 +102,7 @@
 
             for (var i = 0; i < 100000; i++)
             {
-                var nameIndex = _dice.RollForMonsterNameIndex(monstersCount);
+                var nameIndex = _yoloDice.RollForMonsterNameIndex(monstersCount);
                 nameIndexes.Add(nameIndex);
             }
             

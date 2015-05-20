@@ -53,6 +53,7 @@
     <Compile Include="ConsolePresentation\ConsolePresentationConfiguration.cs" />
     <Compile Include="ConsolePresentation\Logger.cs" />
     <Compile Include="Dice.cs" />
+    <Compile Include="YoloDice.cs" />
     <Compile Include="Entities\Dimensions.cs" />
     <Compile Include="Entities\IAm.cs" />
     <Compile Include="Fighting\ICanAttack.cs" />
@@ -60,7 +61,6 @@
     <Compile Include="Entities\Monster.cs" />
     <Compile Include="Entities\RoomCorridor.cs" />
     <Compile Include="Entities\WorldRepresentation.cs" />
-    <Compile Include="Extensions\RoomExtensionMethods.cs" />
     <Compile Include="Entities\Point.cs" />
     <Compile Include="Factories\MapFactory.cs" />
     <Compile Include="Factories\MonsterNamesLoader.cs" />

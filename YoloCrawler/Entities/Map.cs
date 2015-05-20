@@ -4,12 +4,12 @@ namespace YoloCrawler.Entities
 
     public class Map
     {
-        private readonly Dice _dice;
+        private readonly YoloDice _yoloDice;
         public List<Room> Rooms { get; set; }
 
         public Map()
         {
-            _dice = new Dice();
+            _yoloDice = new YoloDice();
             Rooms = new List<Room>();
         }
 
@@ -20,7 +20,7 @@ namespace YoloCrawler.Entities
 
         public Room GetRandomStartingRoom()
         {
-            var randomIndex = _dice.RollForRandomRoomIndex(Rooms.Count);
+            var randomIndex = _yoloDice.RollForRandomRoomIndex(Rooms.Count);
 
             return Rooms[randomIndex];
         }
