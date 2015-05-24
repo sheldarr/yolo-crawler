@@ -11,6 +11,7 @@
     {
         private Engine _engine;
         private readonly AutoResetEvent _engineInitialized = new AutoResetEvent(false);
+        private const int YoloTeamBaseHitpoints = 10;
 
         static void Main(string[] args)
         {
@@ -37,7 +38,7 @@
             var configuration = MapConfiguration.Default;
             var dice = new YoloDice();
             var mapFactory = new MapFactory(dice, new DefaultHealingHealingShrineFactory(dice));
-            _engine = new Engine(presentation, logger, mapFactory.GenerateMap(configuration), new YoloTeam(configuration.YoloTeamBaseHitpoints));
+            _engine = new Engine(presentation, logger, mapFactory.GenerateMap(configuration), new YoloTeam(YoloTeamBaseHitpoints));
             _engineInitialized.Set();
             _engine.Run();
 

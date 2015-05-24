@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Entities;
     using NUnit.Framework;
 
     [TestFixture]
@@ -78,6 +79,29 @@
             // then
             Assert.That(nameIndexes, Is.All.InRange(0, 3));
             Assert.That(nameIndexes.Contains(3), Is.True);
+        }
+
+        [Test]
+        public void ShouldRollPositionInRoomWithMarginForWall()
+        {
+            // given
+            var roomSize = new Size(20, 20);
+            const int marginForWall = 1;
+
+            // when
+            var roomPositionX = new List<int>();
+            var roomPositionY = new List<int>();
+
+            for (var i = 0; i < 100000; i++)
+            {
+                var position = _yoloDice.RollPosition(roomSize.Width, roomSize.Height);
+                roomPositionX.Add(position.X);
+                roomPositionY.Add(position.Y);
+            }
+
+            // then
+            Assert.That(roomPositionX, Is.All.InRange(1, roomSize.Width - marginForWall));
+            Assert.That(roomPositionY, Is.All.InRange(1, roomSize.Height - marginForWall));
         }
     }
 }

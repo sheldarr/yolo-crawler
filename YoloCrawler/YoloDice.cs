@@ -26,7 +26,7 @@
 
         public Position RollPosition(int width, int height)
         {
-            return new Position(_random.Next(0, width), _random.Next(0, height));
+            return new Position(_random.Next(1, width - 1), _random.Next(1, height - 1));
         }
 
         public bool RollChance(int percentChance)

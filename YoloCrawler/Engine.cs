@@ -74,7 +74,9 @@
 
             if (nextTile.HasShrine)
             {
+                var hitpointsBeforeHeal = _yoloTeam.Hitpoints;
                 nextTile.Shrine.Heal(_yoloTeam);
+                _logger.LogHeal(_yoloTeam, hitpointsBeforeHeal);
             }
 
             _yoloTeam.Move(offset);

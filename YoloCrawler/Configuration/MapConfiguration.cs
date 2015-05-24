@@ -18,11 +18,9 @@
                     RoomCountBetween = Tuple.Create(4, 10),
                     MinRoomNeighboursCount = 1,
                     MaxRoomNeighboursCount = 3,
-                    HealingShrines = HealingShrinesConfiguration.Default
+                    HealingShrines = HealingShrinesConfiguration.Default,
                 };
             }
         }
-
-        public int YoloTeamBaseHitpoints { get; set; }
     }
 }
