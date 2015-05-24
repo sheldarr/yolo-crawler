@@ -4,10 +4,13 @@ namespace YoloCrawler.Entities
 
     public class YoloTeam : Being, ICanAttack, ICanBeAttacked
     {
-        public YoloTeam(Position startingPosition)
+        private readonly int _baseHitpoints;
+
+        public YoloTeam(Position startingPosition, int maxHitpoints)
         {
             Position = startingPosition;
-            Hitpoints = 10;
+            _baseHitpoints = maxHitpoints;
+            Hitpoints = maxHitpoints;
             Name = "#YoloTeam";
         }
 
@@ -32,6 +35,19 @@ namespace YoloCrawler.Entities
         public void Take(Damage dmg)
         {
             Hitpoints -= dmg.Hitpoints;
+        }
+
+        public void Heal(int hitpointsToHeal)
+        {
+            var hitpointsAfterHealing = Hitpoints + hitpointsToHeal;
+
+            if (hitpointsAfterHealing > _baseHitpoints)
+            {
+                Hitpoints = _baseHitpoints;
+                return;
+            }
+
+            Hitpoints = hitpointsAfterHealing;
         }
     }
 }

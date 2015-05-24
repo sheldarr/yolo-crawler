@@ -13,6 +13,7 @@
         private YoloTeam _yoloTeam;
         private Room _room;
         private WorldRepresentation _worldRepresentation;
+        private const int YoloTeamMaxHitpoints = 10;
         public Map Map { get; set; }
 
         public Engine(Presentation presentation, Logger logger)
@@ -26,7 +27,7 @@
         {
             Map = MapFactory.GenerateRandomMap();
             _room = Map.GetRandomStartingRoom();
-            _yoloTeam = new YoloTeam(_room.StartingPosition);
+            _yoloTeam = new YoloTeam(_room.StartingPosition, YoloTeamMaxHitpoints);
             _worldRepresentation = new WorldRepresentation(_room, _yoloTeam);
             _presentation.Draw(_worldRepresentation);
         }
