@@ -1,10 +1,10 @@
-﻿namespace YoloCrawler.Tests
+﻿namespace YoloCrawler.Tests.HealingMechanicsSpecification
 {
     using Entities;
     using Fighting;
     using NUnit.Framework;
 
-    internal class HealingMechanicsSpecification
+    internal class YoloTeamHealing
     {
         private static Position StartingPosition { get { return new Position(0,0); } }
 
@@ -33,7 +33,6 @@
             const int teamMaxHitpoints = 10;
             var yoloTeam = new YoloTeam(StartingPosition, teamMaxHitpoints);
             yoloTeam.Take(new Damage { Hitpoints = 2 });
-            var hitpointsWhenHealing = yoloTeam.Hitpoints;
 
             const int hitpointsToHeal = 4;
 

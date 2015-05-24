@@ -2,7 +2,7 @@ namespace YoloCrawler.Entities
 {
     using Fighting;
 
-    public class YoloTeam : Being, ICanAttack, ICanBeAttacked
+    public class YoloTeam : Being, ICanAttack, ICanBeAttacked, ICanHeal
     {
         private readonly int _baseHitpoints;
 

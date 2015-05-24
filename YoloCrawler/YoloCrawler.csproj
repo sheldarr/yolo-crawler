@@ -53,6 +53,8 @@
     <Compile Include="ConsolePresentation\ConsolePresentationConfiguration.cs" />
     <Compile Include="ConsolePresentation\Logger.cs" />
     <Compile Include="Dice.cs" />
+    <Compile Include="Entities\ICanHeal.cs" />
+    <Compile Include="HealingShrine.cs" />
     <Compile Include="YoloDice.cs" />
     <Compile Include="Entities\Dimensions.cs" />
     <Compile Include="Entities\IAm.cs" />
