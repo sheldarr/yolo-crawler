@@ -18,12 +18,7 @@
                     RoomCountBetween = Tuple.Create(4, 10),
                     MinRoomNeighboursCount = 1,
                     MaxRoomNeighboursCount = 3,
-                    HealingShrines = new HealingShrinesConfiguration
-                    {
-                        ShrinePercentageSpawnChance = 33,
-                        HealedHitpointsBetween = Tuple.Create(2, 3),
-                        UseCountRange = Tuple.Create(1, 2)
-                    }
+                    HealingShrines = HealingShrinesConfiguration.Default
                 };
             }
         }

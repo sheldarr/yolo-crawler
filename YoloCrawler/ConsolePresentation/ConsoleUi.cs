@@ -115,6 +115,10 @@
                     {
                         stringBuilder.Append(_consolePresentationConfiguration.MonsterCharacter);
                     }
+                    else if (room.Tiles[currentTilePosition.X, currentTilePosition.Y].HasShrine)
+                    {
+                        stringBuilder.Append(_consolePresentationConfiguration.ShrineCharacter);
+                    }
                     else
                     {
                         stringBuilder.Append(_consolePresentationConfiguration.GetTileCharacter(room.Tiles[w, h]));

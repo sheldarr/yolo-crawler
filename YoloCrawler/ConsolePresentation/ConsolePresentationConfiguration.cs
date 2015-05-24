@@ -39,5 +39,10 @@
         {
             get { return 'M'; }
         }
+
+        public char ShrineCharacter
+        {
+            get { return 'S'; }
+        }
     }
 }

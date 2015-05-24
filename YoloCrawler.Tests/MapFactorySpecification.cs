@@ -90,6 +90,7 @@
             var firstRoom = map.Rooms[0];
 
             Assert.That(firstRoom.Tiles[shrinePosition.X, shrinePosition.Y].Shrine, Is.EqualTo(shrine));
+            Assert.That(firstRoom.Tiles[shrinePosition.X, shrinePosition.Y].HasShrine);
         }
     }
 }

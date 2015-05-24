@@ -67,5 +67,10 @@ namespace YoloCrawler.Entities
         }
 
         public HealingShrine Shrine { get; private set; }
+
+        public bool HasShrine
+        {
+            get { return Shrine != null; }
+        }
     }
 }
