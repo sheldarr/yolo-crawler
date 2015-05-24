@@ -6,5 +6,6 @@
     {
         public Tuple<int, int> UseCountRange { get; set; }
         public Tuple<int, int> HealedHitpointsBetween { get; set; }
+        public int ShrinePercentageSpawnChance { get; set; }
     }
 }

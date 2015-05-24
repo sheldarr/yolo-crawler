@@ -34,37 +34,6 @@
         }
 
         [Test]
-        public void ShouldRolForNeigbourningRoomCountWhenPassinMinAndMaxCount()
-        {
-            // given
-            const int minCount = 4;
-            const int maxCount = 5;
-
-            // when
-            var neighboursCount = _yoloDice.RollForNeighboursCount(minCount, maxCount);
-
-            // then
-            Assert.That(neighboursCount, Is.InRange(4, 5));
-        }
-
-        [Test]
-        public void ShouldRollForRollForRandomRoomWidthAndSizeThatIsNotBiggerThanDisplaySize()
-        {
-            // given
-            // numbers that are divisable by 2
-            const int maxDisplayWidth = 58;
-            const int maxDisplayHeight = 18;
-
-            // when
-            var randomRoomWidth = _yoloDice.RollForRandomRoomWidth();
-            var randomRoomHeight = _yoloDice.RollForRandomRoomHeight();
-
-            // then
-            Assert.That(randomRoomWidth, Is.InRange(4, maxDisplayWidth));
-            Assert.That(randomRoomHeight, Is.InRange(4, maxDisplayHeight));
-        }
-
-        [Test]
         public void ShouldRollForRandomRoomIndexBasedOnRoomCount()
         {
             // given

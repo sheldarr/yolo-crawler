@@ -46,25 +46,6 @@
             return _random.Next(lowerBound, upperBound + FixingStupidUpperBound);
         }
 
-        public int RollForNeighboursCount(int minCount, int maxCount)
-        {
-            return _random.Next(minCount, maxCount + FixingStupidUpperBound);
-        }
-
-        public int RollForRandomRoomWidth()
-        {
-            const int minRoomWidth = 4;
-            const int maxRoomWidthBasedOnMaxDisplayWidth = 58;
-            return _random.Next(minRoomWidth, maxRoomWidthBasedOnMaxDisplayWidth + FixingStupidUpperBound);
-        }
-
-        public int RollForRandomRoomHeight()
-        {
-            const int minRoomHeight = 4;
-            const int maxRoomHeightBasedOnMaxDisplayHeight = 18;
-            return _random.Next(minRoomHeight, maxRoomHeightBasedOnMaxDisplayHeight + FixingStupidUpperBound);
-        }
-
         public int RollForHitpoints(int minHitpoints, int maxHitpoints)
         {
             return _random.Next(minHitpoints, maxHitpoints + FixingStupidUpperBound);

@@ -1,7 +1,9 @@
 ﻿namespace YoloCrawler
 {
     using System.Threading;
+    using Configuration;
     using ConsolePresentation;
+    using Factories;
     using Input;
     using Entities;
 
@@ -32,7 +34,10 @@
             var consoleUi = new ConsoleUi(displaySize, new ConsolePresentationConfiguration());
             var presentation = consoleUi as Presentation;
             var logger = consoleUi as Logger;
-            _engine = new Engine(presentation, logger);
+            var configuration = MapConfiguration.Default;
+            var dice = new YoloDice();
+            var mapFactory = new MapFactory(dice, new DefaultHealingHealingShrineFactory(dice));
+            _engine = new Engine(presentation, logger, mapFactory.GenerateMap(configuration));
             _engineInitialized.Set();
             _engine.Run();
 

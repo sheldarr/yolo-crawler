@@ -56,6 +56,7 @@
     <Compile Include="ConsolePresentation\Logger.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="Entities\ICanHeal.cs" />
+    <Compile Include="Factories\DefaultHealingHealingShrineFactory.cs" />
     <Compile Include="Factories\HealingShrineFactory.cs" />
     <Compile Include="HealingShrine.cs" />
     <Compile Include="YoloDice.cs" />

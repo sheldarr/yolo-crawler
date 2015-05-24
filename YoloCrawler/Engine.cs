@@ -4,7 +4,6 @@
     using System.Threading;
     using ConsolePresentation;
     using Entities;
-    using Factories;
 
     public class Engine
     {
@@ -16,8 +15,9 @@
         private const int YoloTeamMaxHitpoints = 10;
         public Map Map { get; set; }
 
-        public Engine(Presentation presentation, Logger logger)
+        public Engine(Presentation presentation, Logger logger, Map map)
         {
+            Map = map;
             _presentation = presentation;
             _logger = logger;
             InitializeGame();
@@ -25,7 +25,6 @@
 
         private void InitializeGame()
         {
-            Map = MapFactory.GenerateRandomMap();
             _room = Map.GetRandomStartingRoom();
             _yoloTeam = new YoloTeam(_room.StartingPosition, YoloTeamMaxHitpoints);
             _worldRepresentation = new WorldRepresentation(_room, _yoloTeam);

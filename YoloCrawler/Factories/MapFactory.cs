@@ -8,6 +8,8 @@
     {
         private readonly Dice _dice;
         private readonly HealingShrineFactory _healingShrineFactory;
+        private const int MaxRoomHeightBasedOnMaxDisplayHeight = 18;
+        private const int MaxRoomWidthBasedOnMaxDisplayWidth = 58;
 
         public MapFactory(Dice dice, HealingShrineFactory healingShrineFactory)
         {
@@ -17,7 +19,7 @@
 
         public Map GenerateMap(MapConfiguration mapConfiguration)
         {
-            var roomCount = _dice.RollK100();
+            var roomCount = _dice.RollBetween(mapConfiguration.RoomCountBetween.Item1, mapConfiguration.RoomCountBetween.Item2);
             var origin = GetNewRandomRoom();
 
             var rooms = new List<Room>();
@@ -30,7 +32,8 @@
             while (roomCount != 0)
             {
                 var room = neighbourQueue.Dequeue();
-                var newRooms = GenerateNeighbours(room, MinNeighboursCount, MaxNeighboursCount);
+                int maxNeighboursCount = (mapConfiguration.MaxRoomNeighboursCount > roomCount) ? roomCount : mapConfiguration.MaxRoomNeighboursCount;
+                var newRooms = GenerateNeighbours(room, mapConfiguration.MinRoomNeighboursCount, maxNeighboursCount);
 
                 roomCount -= newRooms.Count;
                 newRooms.ForEach(neighbourQueue.Enqueue);
@@ -39,7 +42,7 @@
 
             rooms.ForEach(room => room.SpawnMonsters(1));
 
-            SpawnShrines(rooms, mapConfiguration);
+            SpawnShrines(rooms, mapConfiguration.HealingShrines);
 
             return new Map
             {
@@ -47,63 +50,27 @@
             };
         }
 
-        private void SpawnShrines(IEnumerable<Room> rooms, MapConfiguration mapConfiguration)
+        private void SpawnShrines(IEnumerable<Room> rooms, HealingShrinesConfiguration healingShrinesConfiguration)
         {
             foreach (var room in rooms)
             {
-                var shouldSpawnShrine = _dice.RollChance(mapConfiguration.ShrineSpawnChance);
+                var shouldSpawnShrine = _dice.RollChance(healingShrinesConfiguration.ShrinePercentageSpawnChance);
 
                 if (!shouldSpawnShrine)
                 {
                     continue;
                 }
 
-                var newShrine = _healingShrineFactory.GetShrine(mapConfiguration.HealingShrines);
+                var newShrine = _healingShrineFactory.GetShrine(healingShrinesConfiguration);
                 var shrinePosition = _dice.RollPosition(room.Size.Width, room.Size.Height);
 
                 room.BuildShrine(newShrine, shrinePosition);
             }
         }
 
-        //static stuff
-
-        private static readonly YoloDice YoloDice = new YoloDice();
-
-        const int MinNeighboursCount = 1;
-        const int MaxNeighboursCount = 3;
-
-        public static Map GenerateRandomMap()
+        private List<Room> GenerateNeighbours(Room room, int minCount, int maxCount)
         {
-            var roomCount = YoloDice.RollK100();
-            var origin = GetNewRandomRoom();
-
-            var rooms = new List<Room>();
-            var neighbourQueue = new Queue<Room>();
-
-            neighbourQueue.Enqueue(origin);
-            rooms.Add(origin);
-
-            while (roomCount != 0)
-            {
-                var room = neighbourQueue.Dequeue();
-                var newRooms = GenerateNeighbours(room, MinNeighboursCount, MaxNeighboursCount);
-
-                roomCount -= newRooms.Count;
-                newRooms.ForEach(neighbourQueue.Enqueue);
-                rooms.AddRange(newRooms);
-            }
-
-            rooms.ForEach(room => room.SpawnMonsters(1));
-
-            return new Map
-            {
-                Rooms = rooms
-            };
-        }
-
-        private static List<Room> GenerateNeighbours(Room room, int minCount, int maxCount)
-        {
-            var neighbourCount = YoloDice.RollForNeighboursCount(minCount, maxCount);
+            var neighbourCount = _dice.RollBetween(minCount, maxCount);
 
             var rooms = new List<Room>();
 
@@ -119,19 +86,19 @@
             return rooms;
         }
 
-        private static Room GetNewRandomRoom()
+        private Room GetNewRandomRoom()
         {
             int randomWidth;
             do
             {
-                randomWidth = YoloDice.RollForRandomRoomWidth();
+                randomWidth = _dice.RollBetween(4, MaxRoomWidthBasedOnMaxDisplayWidth);
             } while (randomWidth % 2 != 0);
 
             int randomHeight;
 
             do
             {
-                randomHeight = YoloDice.RollForRandomRoomHeight();
+                randomHeight = _dice.RollBetween(4, MaxRoomHeightBasedOnMaxDisplayHeight);
             } while (randomHeight % 2 != 0);
 
             var roomSize = new Size(randomWidth, randomHeight);

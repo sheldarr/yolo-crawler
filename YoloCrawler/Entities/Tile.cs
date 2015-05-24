@@ -6,17 +6,11 @@ namespace YoloCrawler.Entities
     {
         private readonly Position _position;
         private Room _room;
-        private HealingShrine _shrine;
         public TileType Type { get; private set; }
 
         public bool HasDoor
         {
             get { return _room != null; }
-        }
-
-        public bool HasShrine
-        {
-            get { return _shrine != null; }
         }
 
         public Tile(TileType tileType, Position position)
@@ -69,7 +63,9 @@ namespace YoloCrawler.Entities
 
         public void BuildShrine(HealingShrine newShrine)
         {
-            _shrine = newShrine;
+            Shrine = newShrine;
         }
+
+        public HealingShrine Shrine { get; private set; }
     }
 }
