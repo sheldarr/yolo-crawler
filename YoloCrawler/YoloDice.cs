@@ -29,14 +29,21 @@
             return new Position(_random.Next(0, width), _random.Next(0, height));
         }
 
-        public bool RollChance(int shrineSpawnChance)
+        public bool RollChance(int percentChance)
         {
-            throw new NotImplementedException();
+            var k100 = RollK100();
+
+            if (k100 <= percentChance)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public int RollBetween(int lowerBound, int upperBound)
         {
-            throw new NotImplementedException();
+            return _random.Next(lowerBound, upperBound + FixingStupidUpperBound);
         }
 
         public int RollForNeighboursCount(int minCount, int maxCount)

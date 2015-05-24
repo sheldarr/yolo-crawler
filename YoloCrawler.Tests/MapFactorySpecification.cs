@@ -16,8 +16,8 @@
             var mapConfiguration = new MapConfiguration();
 
             var dice = A.Fake<Dice>();
-            const int k100RollResult = 1;
-            A.CallTo(() => dice.RollK100()).Returns(k100RollResult);
+            const int roomCount = 1;
+            A.CallTo(() => dice.RollK100()).Returns(roomCount);
             A.CallTo(() => dice.RollChance(mapConfiguration.ShrineSpawnChance)).Returns(true);
             A.CallTo(() => dice.RollPosition(A<int>.Ignored, A<int>.Ignored)).Returns(shrinePosition);
 
@@ -30,7 +30,7 @@
             var map = mapFactory.GenerateMap(mapConfiguration);
 
             //then
-            Assert.That(map.Rooms.Count, Is.EqualTo(k100RollResult));
+            Assert.That(map.Rooms.Count, Is.EqualTo(roomCount));
             var firstRoom = map.Rooms[0];
 
             Assert.That(firstRoom.Tiles[shrinePosition.X, shrinePosition.Y].HasShrine);
