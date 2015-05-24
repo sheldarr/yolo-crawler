@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DiceTests.cs" />
+    <Compile Include="HealingMechanicsSpecification\EngineHealingSpecification.cs" />
     <Compile Include="HealingMechanicsSpecification\HealingShrineSpecification.cs" />
     <Compile Include="HealingMechanicsSpecification\DefaultHealingShrineFactorySpecification.cs" />
     <Compile Include="MapFactorySpecification.cs" />

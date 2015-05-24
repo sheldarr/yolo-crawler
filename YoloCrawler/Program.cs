@@ -37,7 +37,7 @@
             var configuration = MapConfiguration.Default;
             var dice = new YoloDice();
             var mapFactory = new MapFactory(dice, new DefaultHealingHealingShrineFactory(dice));
-            _engine = new Engine(presentation, logger, mapFactory.GenerateMap(configuration));
+            _engine = new Engine(presentation, logger, mapFactory.GenerateMap(configuration), new YoloTeam(configuration.YoloTeamBaseHitpoints));
             _engineInitialized.Set();
             _engine.Run();
 

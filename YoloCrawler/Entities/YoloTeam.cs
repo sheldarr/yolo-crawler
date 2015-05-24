@@ -6,11 +6,18 @@ namespace YoloCrawler.Entities
     {
         private readonly int _baseHitpoints;
 
-        public YoloTeam(Position startingPosition, int maxHitpoints)
+        public YoloTeam(Position startingPosition, int baseHitpoints)
         {
             Position = startingPosition;
-            _baseHitpoints = maxHitpoints;
-            Hitpoints = maxHitpoints;
+            _baseHitpoints = baseHitpoints;
+            Hitpoints = baseHitpoints;
+            Name = "#YoloTeam";
+        }
+
+        public YoloTeam(int baseHitpoints)
+        {
+            _baseHitpoints = baseHitpoints;
+            Hitpoints = baseHitpoints;
             Name = "#YoloTeam";
         }
 
@@ -19,7 +26,7 @@ namespace YoloCrawler.Entities
             Position += offset;
         }
 
-        public void EnterRoom(Position newRoomStartingPosition)
+        public void EnterRoomAt(Position newRoomStartingPosition)
         {
             Position = newRoomStartingPosition;
         }
