@@ -152,5 +152,10 @@ namespace YoloCrawler.Entities
         {
             return position.X != 0 && position.X != Size.Width - 1 && position.Y != 0 && position.Y != Size.Height - 1;
         }
+
+        public void BuildShrine(HealingShrine newShrine, Position shrinePosition)
+        {
+            Tiles[shrinePosition.X, shrinePosition.Y].BuildShrine(newShrine);
+        }
     }
 }
