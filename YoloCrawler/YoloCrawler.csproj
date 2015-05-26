@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Configuration\ConfigurationFactory.cs" />
     <Compile Include="Configuration\HealingShrinesConfiguration.cs" />
     <Compile Include="Configuration\MapConfiguration.cs" />
     <Compile Include="ConsolePresentation\ConsoleState.cs" />

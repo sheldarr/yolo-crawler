@@ -2,14 +2,14 @@
 {
     using System;
 
-    public class MapConfiguration
+    public class MapConfiguration : Configuration<MapConfiguration>
     {
         public int MinRoomNeighboursCount { get; set; }
         public int MaxRoomNeighboursCount { get; set; }
         public Tuple<int, int> RoomCountBetween { get; set; }
         public HealingShrinesConfiguration HealingShrines { get; set; }
 
-        public static MapConfiguration Default
+        public MapConfiguration Default
         {
             get
             {
