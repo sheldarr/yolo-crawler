@@ -48,11 +48,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Configuration\ConfigurationFactory.cs" />
+    <Compile Include="Configuration\HealingShrinesConfiguration.cs" />
+    <Compile Include="Configuration\MapConfiguration.cs" />
     <Compile Include="ConsolePresentation\ConsoleState.cs" />
     <Compile Include="ConsolePresentation\ConsoleUi.cs" />
     <Compile Include="ConsolePresentation\ConsolePresentationConfiguration.cs" />
     <Compile Include="ConsolePresentation\Logger.cs" />
     <Compile Include="Dice.cs" />
+    <Compile Include="Entities\ICanHeal.cs" />
+    <Compile Include="Factories\DefaultHealingHealingShrineFactory.cs" />
+    <Compile Include="Factories\HealingShrineFactory.cs" />
+    <Compile Include="HealingShrine.cs" />
     <Compile Include="YoloDice.cs" />
     <Compile Include="Entities\Dimensions.cs" />
     <Compile Include="Entities\IAm.cs" />

@@ -2,12 +2,22 @@ namespace YoloCrawler.Entities
 {
     using Fighting;
 
-    public class YoloTeam : Being, ICanAttack, ICanBeAttacked
+    public class YoloTeam : Being, ICanAttack, ICanBeAttacked, ICanHeal
     {
-        public YoloTeam(Position startingPosition)
+        private readonly int _baseHitpoints;
+
+        public YoloTeam(Position startingPosition, int baseHitpoints)
         {
             Position = startingPosition;
-            Hitpoints = 10;
+            _baseHitpoints = baseHitpoints;
+            Hitpoints = baseHitpoints;
+            Name = "#YoloTeam";
+        }
+
+        public YoloTeam(int baseHitpoints)
+        {
+            _baseHitpoints = baseHitpoints;
+            Hitpoints = baseHitpoints;
             Name = "#YoloTeam";
         }
 
@@ -16,7 +26,7 @@ namespace YoloCrawler.Entities
             Position += offset;
         }
 
-        public void EnterRoom(Position newRoomStartingPosition)
+        public void EnterRoomAt(Position newRoomStartingPosition)
         {
             Position = newRoomStartingPosition;
         }
@@ -32,6 +42,19 @@ namespace YoloCrawler.Entities
         public void Take(Damage dmg)
         {
             Hitpoints -= dmg.Hitpoints;
+        }
+
+        public void Heal(int hitpointsToHeal)
+        {
+            var hitpointsAfterHealing = Hitpoints + hitpointsToHeal;
+
+            if (hitpointsAfterHealing > _baseHitpoints)
+            {
+                Hitpoints = _baseHitpoints;
+                return;
+            }
+
+            Hitpoints = hitpointsAfterHealing;
         }
     }
 }

@@ -26,26 +26,24 @@
 
         public Position RollPosition(int width, int height)
         {
-            return new Position(_random.Next(0, width), _random.Next(0, height));
+            return new Position(_random.Next(1, width - 1), _random.Next(1, height - 1));
         }
 
-        public int RollForNeighboursCount(int minCount, int maxCount)
+        public bool RollChance(int percentChance)
         {
-            return _random.Next(minCount, maxCount + FixingStupidUpperBound);
+            var k100 = RollK100();
+
+            if (k100 <= percentChance)
+            {
+                return true;
+            }
+
+            return false;
         }
 
-        public int RollForRandomRoomWidth()
+        public int RollBetween(int lowerBound, int upperBound)
         {
-            const int minRoomWidth = 4;
-            const int maxRoomWidthBasedOnMaxDisplayWidth = 58;
-            return _random.Next(minRoomWidth, maxRoomWidthBasedOnMaxDisplayWidth + FixingStupidUpperBound);
-        }
-
-        public int RollForRandomRoomHeight()
-        {
-            const int minRoomHeight = 4;
-            const int maxRoomHeightBasedOnMaxDisplayHeight = 18;
-            return _random.Next(minRoomHeight, maxRoomHeightBasedOnMaxDisplayHeight + FixingStupidUpperBound);
+            return _random.Next(lowerBound, upperBound + FixingStupidUpperBound);
         }
 
         public int RollForHitpoints(int minHitpoints, int maxHitpoints)

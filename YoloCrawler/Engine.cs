@@ -4,29 +4,29 @@
     using System.Threading;
     using ConsolePresentation;
     using Entities;
-    using Factories;
 
     public class Engine
     {
         private readonly Presentation _presentation;
         private readonly Logger _logger;
-        private YoloTeam _yoloTeam;
+        private readonly YoloTeam _yoloTeam;
         private Room _room;
         private WorldRepresentation _worldRepresentation;
         public Map Map { get; set; }
 
-        public Engine(Presentation presentation, Logger logger)
+        public Engine(Presentation presentation, Logger logger, Map map, YoloTeam yoloTeam)
         {
+            Map = map;
             _presentation = presentation;
             _logger = logger;
+            _yoloTeam = yoloTeam;
             InitializeGame();
         }
 
         private void InitializeGame()
         {
-            Map = MapFactory.GenerateRandomMap();
             _room = Map.GetRandomStartingRoom();
-            _yoloTeam = new YoloTeam(_room.StartingPosition);
+            _yoloTeam.EnterRoomAt(_room.StartingPosition);
             _worldRepresentation = new WorldRepresentation(_room, _yoloTeam);
             _presentation.Draw(_worldRepresentation);
         }
@@ -72,6 +72,13 @@
                 return;
             }
 
+            if (nextTile.HasShrine)
+            {
+                var hitpointsBeforeHeal = _yoloTeam.Hitpoints;
+                nextTile.Shrine.Heal(_yoloTeam);
+                _logger.LogHeal(_yoloTeam, hitpointsBeforeHeal);
+            }
+
             _yoloTeam.Move(offset);
         }
 
@@ -79,7 +86,7 @@
         {
             var nextRoom = nextTile.GetRoom();
             Tile doorToNextRoom = nextRoom.GetDoorTo(_room);
-            _yoloTeam.EnterRoom(doorToNextRoom.GetStartingPosition(nextRoom));
+            _yoloTeam.EnterRoomAt(doorToNextRoom.GetStartingPosition(nextRoom));
             _room = nextRoom;
         }
 

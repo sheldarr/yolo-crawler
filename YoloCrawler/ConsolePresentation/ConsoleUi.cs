@@ -42,6 +42,19 @@
             _logWindow.WriteLine(string.Format("{0} attacked {1}. {1} is now angry at {2} hp.", attacker.Name, victim.Name, victim.Hitpoints));
         }
 
+        public void LogHeal(Being healedBeing, int hitpointsBeforeHeal)
+        {
+            var hitpointsRestored = healedBeing.Hitpoints - hitpointsBeforeHeal;
+
+            if (hitpointsRestored != 0)
+            {
+                _logWindow.WriteLine(string.Format("{0} got healed and is now at {1}HP", healedBeing.Name, healedBeing.Hitpoints));
+                return;
+            }
+
+            _logWindow.WriteLine(string.Format("{0} healed nothing.", healedBeing.Name));
+        }
+
         private void InitializeMapWindow()
         {
             GetHorizontalBorder();
@@ -114,6 +127,10 @@
                     else if (room.Monsters.Any(monster => monster.Position.Equals(currentTilePosition)))
                     {
                         stringBuilder.Append(_consolePresentationConfiguration.MonsterCharacter);
+                    }
+                    else if (room.Tiles[currentTilePosition.X, currentTilePosition.Y].HasShrine)
+                    {
+                        stringBuilder.Append(_consolePresentationConfiguration.ShrineCharacter);
                     }
                     else
                     {

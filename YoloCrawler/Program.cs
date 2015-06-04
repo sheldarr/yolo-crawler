@@ -1,7 +1,9 @@
 ﻿namespace YoloCrawler
 {
     using System.Threading;
+    using Configuration;
     using ConsolePresentation;
+    using Factories;
     using Input;
     using Entities;
 
@@ -9,6 +11,7 @@
     {
         private Engine _engine;
         private readonly AutoResetEvent _engineInitialized = new AutoResetEvent(false);
+        private const int YoloTeamBaseHitpoints = 10;
 
         static void Main(string[] args)
         {
@@ -32,7 +35,10 @@
             var consoleUi = new ConsoleUi(displaySize, new ConsolePresentationConfiguration());
             var presentation = consoleUi as Presentation;
             var logger = consoleUi as Logger;
-            _engine = new Engine(presentation, logger);
+            var configuration = ConfigurationFactory.FromFile<MapConfiguration>("mapConfiguration.js");
+            var dice = new YoloDice();
+            var mapFactory = new MapFactory(dice, new DefaultHealingHealingShrineFactory(dice));
+            _engine = new Engine(presentation, logger, mapFactory.GenerateMap(configuration), new YoloTeam(YoloTeamBaseHitpoints));
             _engineInitialized.Set();
             _engine.Run();
 

@@ -46,7 +46,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DiceTests.cs" />
+    <Compile Include="HealingMechanicsSpecification\EngineHealingSpecification.cs" />
+    <Compile Include="HealingMechanicsSpecification\HealingShrineSpecification.cs" />
+    <Compile Include="HealingMechanicsSpecification\DefaultHealingShrineFactorySpecification.cs" />
+    <Compile Include="MapFactorySpecification.cs" />
     <Compile Include="RoomSpecification.cs" />
+    <Compile Include="HealingMechanicsSpecification\YoloTeamHealing.cs" />
     <Compile Include="YoloTeamTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -65,6 +70,7 @@
       <Name>YoloCrawler</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
