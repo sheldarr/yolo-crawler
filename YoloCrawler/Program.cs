@@ -35,7 +35,7 @@
             var consoleUi = new ConsoleUi(displaySize, new ConsolePresentationConfiguration());
             var presentation = consoleUi as Presentation;
             var logger = consoleUi as Logger;
-            var configuration = ConfigurationFactory.FromFile<MapConfiguration>("mapConfiguration.js");
+            var configuration = ConfigurationFactory.FromFile<MapConfiguration>("mapConfiguration.json");
             var dice = new YoloDice();
             var mapFactory = new MapFactory(dice, new DefaultHealingHealingShrineFactory(dice));
             _engine = new Engine(presentation, logger, mapFactory.GenerateMap(configuration), new YoloTeam(YoloTeamBaseHitpoints));
