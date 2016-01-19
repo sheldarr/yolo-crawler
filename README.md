@@ -1,7 +1,7 @@
-# YoloCrawler
+# Yolo Crawler
 
 Description:
-low-end dungeon crawler (or something of the sort)
+Low-end dungeon crawler (or something of the sort)
 
 How things work:
 - All configuration files are json files
@@ -10,7 +10,7 @@ Map generation and configuration:
 - Map is generated at the start of the game
 - generated map size (expressed by room count) is rolled between values configured by 'RoomCountBetween' configuration property
 - map layout:
-    - each room has 'MinRoomNeighboursCount' - 'MaxRoomNeighboursCount' neighbours (rolled on map generation) 
+    - each room has 'MinRoomNeighboursCount' - 'MaxRoomNeighboursCount' neighbours (rolled on map generation)
 - room dimensions:
     - rolled on map generation individually for each room
     - both width and height are always even numbers
